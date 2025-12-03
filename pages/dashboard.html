@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - Pacha Eats</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    
+    <main class="dashboard-container">
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="profile-info">
+                    <h3 id="userName">Juan Pérez</h3>
+                    <p id="userEmail">juan@ejemplo.com</p>
+                    <span class="member-badge">Miembro Gold</span>
+                </div>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-section="overview"><i class="fas fa-home"></i> Resumen</a></li>
+                    <li><a href="#" class="nav-link" data-section="orders"><i class="fas fa-shopping-bag"></i> Mis Pedidos</a></li>
+                    <li><a href="#" class="nav-link" data-section="favorites"><i class="fas fa-heart"></i> Favoritos</a></li>
+                    <li><a href="#" class="nav-link" data-section="addresses"><i class="fas fa-map-marker-alt"></i> Direcciones</a></li>
+                    <li><a href="#" class="nav-link" data-section="payments"><i class="fas fa-credit-card"></i> Métodos de Pago</a></li>
+                    <li><a href="#" class="nav-link" data-section="profile"><i class="fas fa-user-cog"></i> Perfil</a></li>
+                    <li><a href="#" class="nav-link" data-section="notifications"><i class="fas fa-bell"></i> Notificaciones</a></li>
+                    <li><a href="#" class="nav-link" data-section="support"><i class="fas fa-headset"></i> Soporte</a></li>
+                </ul>
+                
+                <div class="nav-footer">
+                    <a href="../index.html" class="back-home">
+                        <i class="fas fa-arrow-left"></i> Volver al inicio
+                    </a>
+                    <button id="logoutBtn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </button>
+                </div>
+            </nav>
+        </div>
+        
+        <div class="dashboard-content">
+            <!-- Sección Resumen (activa por defecto) -->
+            <section id="overview" class="dashboard-section active">
+                <div class="section-header">
+                    <h1>Resumen de tu cuenta</h1>
+                    <p>Bienvenido de nuevo a Pacha Eats</p>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #E3F2FD;">
+                            <i class="fas fa-shopping-bag" style="color: #2196F3;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>15</h3>
+                            <p>Pedidos totales</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #E8F5E9;">
+                            <i class="fas fa-star" style="color: #4CAF50;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Restaurantes favoritos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #FFF3E0;">
+                            <i class="fas fa-trophy" style="color: #FF9800;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Gold</h3>
+                            <p>Nivel de miembro</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #F3E5F5;">
+                            <i class="fas fa-wallet" style="color: #9C27B0;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>S/ 245.50</h3>
+                            <p>Ahorro total</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- Pedidos recientes -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Pedidos recientes</h3>
+                            <a href="#" class="view-all">Ver todos</a>
+                        </div>
+                        <div class="recent-orders">
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <h4>Jijuna's</h4>
+                                    <p>Alitas BBQ + Papas fritas</p>
+                                    <span class="order-date">Hoy, 18:30</span>
+                                </div>
+                                <div class="order-status delivered">
+                                    <i class="fas fa-check-circle"></i> Entregado
+                                </div>
+                                <div class="order-price">
+                                    S/ 36.90
+                                </div>
+                            </div>
+                            
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <h4>Pacha Sushi</h4>
+                                    <p>Combinado especial + Sopas</p>
+                                    <span class="order-date">Ayer, 20:15</span>
+                                </div>
+                                <div class="order-status delivered">
+                                    <i class="fas fa-check-circle"></i> Entregado
+                                </div>
+                                <div class="order-price">
+                                    S/ 55.90
+                                </div>
+                            </div>
+                            
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <h4>Deli Pizza</h4>
+                                    <p>Pizza familiar + Refrescos</p>
+                                    <span class="order-date">15 Oct, 19:45</span>
+                                </div>
+                                <div class="order-status preparing">
+                                    <i class="fas fa-clock"></i> En preparación
+                                </div>
+                                <div class="order-price">
+                                    S/ 29.90
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ofertas recomendadas -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Ofertas para ti</h3>
+                        </div>
+                        <div class="recommended-offers">
+                            <div class="offer-card">
+                                <div class="offer-info">
+                                    <h4>2x1 en Hamburguesas</h4>
+                                    <p>Jijuna's • Válido hasta 30 Oct</p>
+                                </div>
+                                <button class="btn-small">Usar cupón</button>
+                            </div>
+                            
+                            <div class="offer-card">
+                                <div class="offer-info">
+                                    <h4>Entrega gratis</h4>
+                                    <p>En pedidos mayores a S/ 40</p>
+                                </div>
+                                <button class="btn-small">Ver detalles</button>
+                            </div>
+                            
+                            <div class="offer-card">
+                                <div class="offer-info">
+                                    <h4>15% de descuento</h4>
+                                    <p>Pacha Sushi • Solo fin de semana</p>
+                                </div>
+                                <button class="btn-small">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Restaurantes favoritos -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Tus restaurantes favoritos</h3>
+                    </div>
+                    <div class="favorite-restaurants">
+                        <div class="favorite-item">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Jijuna's">
+                            <div class="favorite-info">
+                                <h4>Jijuna's</h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.5 • Alitas, Pollo Broaster
+                                </div>
+                                <button class="btn-outline order-again">
+                                    <i class="fas fa-redo"></i> Pedir de nuevo
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="favorite-item">
+                            <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Pacha Sushi">
+                            <div class="favorite-info">
+                                <h4>Pacha Sushi</h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 4.7 • Sushi, Comida Japonesa
+                                </div>
+                                <button class="btn-outline order-again">
+                                    <i class="fas fa-redo"></i> Pedir de nuevo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Mis Pedidos -->
+            <section id="orders" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Mis Pedidos</h1>
+                    <p>Historial y seguimiento de tus pedidos</p>
+                </div>
+                
+                <div class="orders-filter">
+                    <button class="filter-btn active">Todos</button>
+                    <button class="filter-btn">Pendientes</button>
+                    <button class="filter-btn">En camino</button>
+                    <button class="filter-btn">Entregados</button>
+                    <button class="filter-btn">Cancelados</button>
+                </div>
+                
+                <div class="orders-list">
+                    <!-- Pedido en curso -->
+                    <div class="order-card active">
+                        <div class="order-header">
+                            <div class="order-id">
+                                <h3>Pedido #PE-2024-0012</h3>
+                                <span class="order-date">15 Oct 2024, 19:45</span>
+                            </div>
+                            <div class="order-status-badge preparing">
+                                <i class="fas fa-clock"></i> En preparación
+                            </div>
+                        </div>
+                        
+                        <div class="order-details">
+                            <div class="restaurant-info">
+                                <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Deli Pizza">
+                                <div>
+                                    <h4>Deli Pizza</h4>
+                                    <p>Pizza familiar + 2 Refrescos 1.5L</p>
+                                </div>
+                            </div>
+                            
+                            <div class="order-tracking">
+                                <div class="tracking-steps">
+                                    <div class="step completed">
+                                        <div class="step-icon">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <span class="step-label">Confirmado</span>
+                                    </div>
+                                    
+                                    <div class="step-line"></div>
+                                    
+                                    <div class="step active">
+                                        <div class="step-icon">
+                                            <i class="fas fa-utensils"></i>
+                                        </div>
+                                        <span class="step-label">En preparación</span>
+                                    </div>
+                                    
+                                    <div class="step-line"></div>
+                                    
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <i class="fas fa-motorcycle"></i>
+                                        </div>
+                                        <span class="step-label">En camino</span>
+                                    </div>
+                                    
+                                    <div class="step-line"></div>
+                                    
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <i class="fas fa-home"></i>
+                                        </div>
+                                        <span class="step-label">Entregado</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="order-summary">
+                                <div class="summary-item">
+                                    <span>Subtotal</span>
+                                    <span>S/ 35.90</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Delivery</span>
+                                    <span>S/ 5.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Descuento</span>
+                                    <span>-S/ 6.00</span>
+                                </div>
+                                <div class="summary-item total">
+                                    <span>Total</span>
+                                    <span>S/ 34.90</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-actions">
+                            <button class="btn-outline">
+                                <i class="fas fa-headset"></i> Contactar soporte
+                            </button>
+                            <button class="btn-outline">
+                                <i class="fas fa-times"></i> Cancelar pedido
+                            </button>
+                            <button class="btn-primary">
+                                <i class="fas fa-redo"></i> Pedir de nuevo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Pedido entregado -->
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">
+                                <h3>Pedido #PE-2024-0011</h3>
+                                <span class="order-date">14 Oct 2024, 20:15</span>
+                            </div>
+                            <div class="order-status-badge delivered">
+                                <i class="fas fa-check-circle"></i> Entregado
+                            </div>
+                        </div>
+                        
+                        <div class="order-details">
+                            <div class="restaurant-info">
+                                <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Pacha Sushi">
+                                <div>
+                                    <h4>Pacha Sushi</h4>
+                                    <p>Combinado especial + 2 Sopas miso</p>
+                                </div>
+                            </div>
+                            
+                            <div class="order-summary">
+                                <div class="summary-item">
+                                    <span>Subtotal</span>
+                                    <span>S/ 65.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Delivery</span>
+                                    <span>Gratis</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Descuento</span>
+                                    <span>-S/ 9.10</span>
+                                </div>
+                                <div class="summary-item total">
+                                    <span>Total</span>
+                                    <span>S/ 55.90</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-actions">
+                            <button class="btn-outline">
+                                <i class="fas fa-star"></i> Calificar
+                            </button>
+                            <button class="btn-outline">
+                                <i class="fas fa-redo"></i> Pedir de nuevo
+                            </button>
+                            <button class="btn-outline">
+                                <i class="fas fa-file-invoice"></i> Ver factura
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Favoritos -->
+            <section id="favorites" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Mis Favoritos</h1>
+                    <p>Restaurantes y platos guardados</p>
+                </div>
+                
+                <div class="favorites-grid">
+                    <!-- Restaurantes favoritos -->
+                    <div class="favorites-section">
+                        <h3>Restaurantes</h3>
+                        <div class="favorites-list">
+                            <div class="favorite-restaurant-card">
+                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Jijuna's">
+                                <div class="favorite-content">
+                                    <h4>Jijuna's</h4>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i> 4.5 (128)
+                                    </div>
+                                    <p>Alitas, Pollo Broaster, Hamburguesas</p>
+                                    <div class="restaurant-tags">
+                                        <span class="tag">Pachacamac</span>
+                                        <span class="tag">Entrega rápida</span>
+                                    </div>
+                                    <div class="favorite-actions">
+                                        <button class="btn-small">
+                                            <i class="fas fa-shopping-cart"></i> Ordenar
+                                        </button>
+                                        <button class="btn-small btn-outline remove-fav">
+                                            <i class="fas fa-trash"></i> Quitar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Platos favoritos -->
+                    <div class="favorites-section">
+                        <h3>Platos favoritos</h3>
+                        <div class="favorites-list">
+                            <div class="favorite-dish-card">
+                                <div class="dish-info">
+                                    <h4>Alitas BBQ Picantes</h4>
+                                    <p>Jijuna's • 12 piezas con salsa especial</p>
+                                    <div class="dish-price">S/ 28.90</div>
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn-small">
+                                        <i class="fas fa-plus"></i> Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Otras secciones (vacías por ahora) -->
+            <section id="addresses" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Mis Direcciones</h1>
+                    <p>Gestiona tus direcciones de entrega</p>
+                </div>
+                <p class="empty-state">Contenido en desarrollo...</p>
+            </section>
+            
+            <section id="payments" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Métodos de Pago</h1>
+                    <p>Gestiona tus tarjetas y métodos de pago</p>
+                </div>
+                <p class="empty-state">Contenido en desarrollo...</p>
+            </section>
+            
+            <section id="profile" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Mi Perfil</h1>
+                    <p>Actualiza tu información personal</p>
+                </div>
+                <p class="empty-state">Contenido en desarrollo...</p>
+            </section>
+            
+            <section id="notifications" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Notificaciones</h1>
+                    <p>Configura tus preferencias de notificación</p>
+                </div>
+                <p class="empty-state">Contenido en desarrollo...</p>
+            </section>
+            
+            <section id="support" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Soporte</h1>
+                    <p>Centro de ayuda y contacto</p>
+                </div>
+                <p class="empty-state">Contenido en desarrollo...</p>
+            </section>
+        </div>
+    </main>
+    
+    <div id="footer-container"></div>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar header y footer
+            fetch('../components/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                    // Actualizar enlace de usuario para mostrar nombre
+                    const userBtn = document.querySelector('.user-btn span');
+                    if (userBtn) {
+                        userBtn.textContent = 'Mi Cuenta';
+                    }
+                });
+            
+            fetch('../components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                });
+            
+            // Verificar si el usuario está logueado
+            const isLoggedIn = localStorage.getItem('pachaEatsLoggedIn');
+            if (!isLoggedIn) {
+                // Si no está logueado, redirigir al login
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Cargar datos del usuario
+            const userEmail = localStorage.getItem('pachaEatsUser') || 'usuario@ejemplo.com';
+            document.getElementById('userEmail').textContent = userEmail;
+            
+            // Extraer nombre del email para ejemplo
+            const userName = userEmail.split('@')[0];
+            document.getElementById('userName').textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+            
+            // Navegación entre secciones
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.dashboard-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover clase active de todos los enlaces
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Agregar clase active al enlace clickeado
+                    this.classList.add('active');
+                    
+                    // Ocultar todas las secciones
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Mostrar la sección correspondiente
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Filtros de pedidos
+            const orderFilters = document.querySelectorAll('.orders-filter .filter-btn');
+            orderFilters.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    orderFilters.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Aquí iría la lógica para filtrar pedidos
+                    const filter = this.textContent.toLowerCase();
+                    console.log('Filtrando pedidos por:', filter);
+                });
+            });
+            
+            // Botón de logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                        // Limpiar datos de sesión
+                        localStorage.removeItem('pachaEatsLoggedIn');
+                        localStorage.removeItem('pachaEatsUser');
+                        
+                        // Redirigir al inicio
+                        window.location.href = '../index.html';
+                    }
+                });
+            }
+            
+            // Botones de acción en pedidos
+            const orderAgainButtons = document.querySelectorAll('.order-again');
+            orderAgainButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const restaurant = this.closest('.favorite-item').querySelector('h4').textContent;
+                    showNotification(`Redirigiendo a ${restaurant} para repetir pedido`, 'info');
+                    
+                    // Simular redirección
+                    setTimeout(() => {
+                        window.location.href = '../index.html';
+                    }, 1000);
+                });
+            });
+            
+            // Funcionalidad para remover favoritos
+            const removeFavButtons = document.querySelectorAll('.remove-fav');
+            removeFavButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.favorite-restaurant-card');
+                    const restaurantName = card.querySelector('h4').textContent;
+                    
+                    if (confirm(`¿Quitar ${restaurantName} de tus favoritos?`)) {
+                        card.style.opacity = '0.5';
+                        setTimeout(() => {
+                            card.remove();
+                            showNotification(`${restaurantName} eliminado de favoritos`, 'success');
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Función para mostrar notificaciones
+            function showNotification(message, type = 'success') {
+                // Crear elemento de notificación
+                const notification = document.createElement('div');
+                notification.className = `dashboard-notification notification-${type}`;
+                notification.textContent = message;
+                
+                // Estilos para la notificación
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: ${type === 'error' ? '#dc3545' : type === 'info' ? '#17a2b8' : '#28a745'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease;
+                    font-family: 'Roboto', sans-serif;
+                `;
+                
+                // Agregar al DOM
+                document.body.appendChild(notification);
+                
+                // Remover después de 3 segundos
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Cerrar sesión automáticamente después de 30 minutos de inactividad
+            let inactivityTimer;
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimer);
+                inactivityTimer = setTimeout(logoutDueToInactivity, 30 * 60 * 1000); // 30 minutos
+            }
+            
+            function logoutDueToInactivity() {
+                localStorage.removeItem('pachaEatsLoggedIn');
+                localStorage.removeItem('pachaEatsUser');
+                alert('Sesión cerrada por inactividad');
+                window.location.href = 'login.html';
+            }
+            
+            // Reiniciar el timer con la actividad del usuario
+            ['click', 'mousemove', 'keypress'].forEach(event => {
+                document.addEventListener(event, resetInactivityTimer);
+            });
+            
+            resetInactivityTimer();
+        });
+    </script>
+</body>
+</html>
