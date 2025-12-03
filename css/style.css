@@ -59,6 +59,7 @@ ul {
 }
 
 /* ===== HEADER ===== */
+/* ===== HEADER CORREGIDO ===== */
 .main-header {
     position: sticky;
     top: 0;
@@ -80,6 +81,300 @@ ul {
     align-items: center;
 }
 
+/* Logo */
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+/* Navegación principal - SOLO PC */
+.nav-menu.desktop-menu {
+    flex: 1;
+    margin-left: 2rem;
+    display: flex;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: rgba(245, 65, 28, 0.1);
+    color: var(--primary-color);
+}
+
+/* Acciones de usuario */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.mobile-search {
+    display: none;
+}
+
+.cart-icon {
+    position: relative;
+    font-size: 1.2rem;
+    color: var(--gray-dark);
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 0.75rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dropdown de usuario */
+.user-dropdown {
+    position: relative;
+    display: block;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 1rem;
+    background-color: var(--light-color);
+    border: 1px solid var(--gray-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.user-btn:hover {
+    background-color: var(--gray-light);
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 220px;
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem 0;
+    display: none;
+    z-index: 1000;
+}
+
+.user-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+/* Menú hamburguesa - OCULTO EN PC */
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--gray-dark);
+    cursor: pointer;
+}
+
+/* ===== MENÚ MÓVIL CORREGIDO ===== */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: var(--shadow-lg);
+    transition: left 0.3s ease;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--gray-light);
+    font-weight: 600;
+    font-size: 1.2rem;
+    background-color: var(--light-color);
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-dark);
+}
+
+.mobile-nav-links {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.mobile-nav-links li {
+    margin-bottom: 0.5rem;
+}
+
+.mobile-nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+
+.mobile-nav-links a:hover {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.mobile-nav-links .divider {
+    height: 1px;
+    background-color: var(--gray-light);
+    margin: 1rem 0;
+    list-style: none;
+}
+
+/* ===== RESPONSIVE DESIGN CORREGIDO ===== */
+@media (max-width: 992px) {
+    .nav-menu.desktop-menu {
+        display: none;
+    }
+    
+    .hamburger-menu {
+        display: block;
+    }
+    
+    .user-dropdown .user-btn span {
+        display: none;
+    }
+    
+    .user-dropdown .user-btn i:last-child {
+        display: none;
+    }
+    
+    .mobile-search {
+        display: block;
+        font-size: 1.2rem;
+        color: var(--gray-dark);
+        cursor: pointer;
+    }
+    
+    /* Ajustar tamaño del dropdown en móvil */
+    .dropdown-content {
+        width: 180px;
+        right: -10px;
+    }
+    
+    .dropdown-content a {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo a .logo-text {
+        display: none;
+    }
+    
+    .user-actions {
+        gap: 1rem;
+    }
+    
+    .cart-icon {
+        font-size: 1.1rem;
+    }
+    
+    .user-btn {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-container {
+        padding: 0 15px;
+    }
+    
+    .mobile-menu {
+        width: 85%;
+        max-width: 300px;
+    }
+    
+    .user-dropdown {
+        display: none; /* En móvil muy pequeño, ocultar dropdown */
+    }
+}
+
+/* ===== OVERLAY PARA MENÚ MÓVIL ===== */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+
+.menu-overlay.active {
+    display: block;
+}
 /* Logo */
 .logo a {
     display: flex;
