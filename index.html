@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacha Eats - Comidas de Restaurantes en Lima</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabecera incluida desde archivo externo -->
+    <div id="header-container"></div>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <!-- Hero Section (Banner principal) -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>¡Comida deliciosa entregada en tu puerta!</h1>
+                <p>Ordena de los mejores restaurantes en Pachacamac, Lurín y Punta Hermosa</p>
+                
+                <!-- Barra de búsqueda estilo Groupon -->
+                <div class="search-bar">
+                    <div class="search-input">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Ingresa tu dirección para delivery" id="address-input">
+                    </div>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i> Buscar Restaurantes
+                    </button>
+                </div>
+                
+                <div class="hero-tags">
+                    <span><i class="fas fa-bolt"></i> Entrega rápida</span>
+                    <span><i class="fas fa-shield-alt"></i> Pago seguro</span>
+                    <span><i class="fas fa-star"></i> Calidad garantizada</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categorías de Comida -->
+        <section class="categories-section">
+            <h2 class="section-title">Categorías Populares</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon" style="background-color: #FFF3E0;">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </div>
+                    <h3>Alitas & Pollo</h3>
+                    <p>Broaster, alitas BBQ</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background-color: #F3E5F5;">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <h3>Hamburguesas</h3>
+                    <p>Clásicas y gourmet</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background-color: #E8F5E9;">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h3>Sushi</h3>
+                    <p>Rolls y combinados</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background-color: #E3F2FD;">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <h3>Pizzas</h3>
+                    <p>Italianas y creativas</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background-color: #FFF8E1;">
+                        <i class="fas fa-ice-cream"></i>
+                    </div>
+                    <h3>Postres</h3>
+                    <p>Dulces tentaciones</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Restaurantes Destacados -->
+        <section class="featured-restaurants">
+            <div class="section-header">
+                <h2 class="section-title">Restaurantes Destacados</h2>
+                <a href="#" class="view-all">Ver todos <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <!-- Filtros estilo Groupon -->
+            <div class="filters">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Entrega rápida</button>
+                <button class="filter-btn">Más populares</button>
+                <button class="filter-btn">Promociones</button>
+                <button class="filter-btn">Nuevos</button>
+            </div>
+            
+            <!-- Grid de restaurantes -->
+            <div class="restaurants-grid">
+                <!-- Restaurante 1 -->
+                <div class="restaurant-card">
+                    <div class="restaurant-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Jijuna's">
+                        <span class="discount-badge">-20%</span>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Jijuna's</h3>
+                        <div class="restaurant-meta">
+                            <span class="rating">
+                                <i class="fas fa-star"></i> 4.5
+                                <span class="reviews">(128)</span>
+                            </span>
+                            <span class="delivery-time">
+                                <i class="fas fa-clock"></i> 25-35 min
+                            </span>
+                        </div>
+                        <p class="cuisine">Alitas, Pollo Broaster, Hamburguesas</p>
+                        <div class="price-range">
+                            <span class="original-price">S/ 45.90</span>
+                            <span class="current-price">S/ 36.90</span>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Pachacamac</span>
+                            <span class="tag delivery">Delivery gratis</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Restaurante 2 -->
+                <div class="restaurant-card">
+                    <div class="restaurant-image">
+                        <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pacha Sushi">
+                        <span class="discount-badge">-15%</span>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Pacha Sushi</h3>
+                        <div class="restaurant-meta">
+                            <span class="rating">
+                                <i class="fas fa-star"></i> 4.7
+                                <span class="reviews">(203)</span>
+                            </span>
+                            <span class="delivery-time">
+                                <i class="fas fa-clock"></i> 30-40 min
+                            </span>
+                        </div>
+                        <p class="cuisine">Sushi, Rolls, Comida Japonesa</p>
+                        <div class="price-range">
+                            <span class="original-price">S/ 65.00</span>
+                            <span class="current-price">S/ 55.90</span>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Lurín</span>
+                            <span class="tag promotion">2x1 en rolls</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Restaurante 3 -->
+                <div class="restaurant-card">
+                    <div class="restaurant-image">
+                        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Deli Pizza">
+                        <span class="discount-badge">-25%</span>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Deli Pizza</h3>
+                        <div class="restaurant-meta">
+                            <span class="rating">
+                                <i class="fas fa-star"></i> 4.3
+                                <span class="reviews">(89)</span>
+                            </span>
+                            <span class="delivery-time">
+                                <i class="fas fa-clock"></i> 20-30 min
+                            </span>
+                        </div>
+                        <p class="cuisine">Pizzas, Pastas, Postres Italianos</p>
+                        <div class="price-range">
+                            <span class="original-price">S/ 38.90</span>
+                            <span class="current-price">S/ 29.90</span>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Punta Hermosa</span>
+                            <span class="tag fast">Entrega rápida</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Registro -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>¡Regístrate y obtén tu primera entrega GRATIS!</h2>
+                <p>Únete a nuestra comunidad y disfruta de ofertas exclusivas</p>
+                <div class="cta-buttons">
+                    <a href="pages/register.html" class="btn-primary">Crear cuenta gratis</a>
+                    <a href="pages/login.html" class="btn-secondary">Iniciar sesión</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de página incluido desde archivo externo -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Cargar header y footer dinámicamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar header
+            fetch('components/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                });
+            
+            // Cargar footer
+            fetch('components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                });
+        });
+    </script>
+</body>
+</html>
