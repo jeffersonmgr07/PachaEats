@@ -1,30 +1,76 @@
-// Funcionalidades principales para Pacha Eats
+// Funcionalidades principales para Pacha Eats - CORREGIDO
 
 document.addEventListener('DOMContentLoaded', function() {
     // Menú móvil
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const mobileMenu = document.querySelector('.mobile-menu');
     const closeMenu = document.querySelector('.close-menu');
+    const body = document.body;
     
+    // Crear overlay si no existe
+    let menuOverlay = document.querySelector('.menu-overlay');
+    if (!menuOverlay) {
+        menuOverlay = document.createElement('div');
+        menuOverlay.className = 'menu-overlay';
+        document.body.appendChild(menuOverlay);
+        
+        // Estilos para el overlay
+        menuOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        `;
+    }
+    
+    // Función para abrir menú móvil
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        menuOverlay.classList.add('active');
+        menuOverlay.style.display = 'block';
+        body.style.overflow = 'hidden';
+    }
+    
+    // Función para cerrar menú móvil
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        menuOverlay.style.display = 'none';
+        body.style.overflow = '';
+    }
+    
+    // Abrir menú al hacer clic en hamburguesa
     if (hamburgerMenu) {
-        hamburgerMenu.addEventListener('click', function() {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevenir scroll
-        });
+        hamburgerMenu.addEventListener('click', openMobileMenu);
     }
     
+    // Cerrar menú con botón X
     if (closeMenu) {
-        closeMenu.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = ''; // Restaurar scroll
-        });
+        closeMenu.addEventListener('click', closeMobileMenu);
     }
     
-    // Cerrar menú al hacer clic fuera
-    document.addEventListener('click', function(event) {
-        if (!mobileMenu.contains(event.target) && !hamburgerMenu.contains(event.target)) {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
+    // Cerrar menú al hacer clic en overlay
+    menuOverlay.addEventListener('click', closeMobileMenu);
+    
+    // Cerrar menú al hacer clic en un enlace del menú
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Si el enlace es interno (no #), cerrar el menú
+            if (this.getAttribute('href') !== '#') {
+                closeMobileMenu();
+            }
+        });
+    });
+    
+    // Cerrar menú con tecla Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
         }
     });
     
@@ -42,9 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Aquí iría la lógica para filtrar restaurantes
             const filter = this.textContent.toLowerCase();
             console.log('Filtrando por:', filter);
-            
-            // Simular filtrado (en una implementación real harías una petición AJAX)
-            // filterRestaurants(filter);
         });
     });
     
@@ -86,9 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (address) {
                 console.log('Buscando restaurantes cerca de:', address);
                 showNotification(`Buscando restaurantes en: ${address}`);
-                
-                // Aquí iría la lógica de búsqueda real
-                // searchRestaurants(address);
             } else {
                 addressInput.focus();
                 showNotification('Por favor, ingresa una dirección', 'error');
@@ -124,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Función para mostrar notificaciones
-    function showNotification(message, type = 'success') {
+    window.showNotification = function(message, type = 'success') {
         // Crear elemento de notificación
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
@@ -143,6 +183,8 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 10000;
             animation: slideIn 0.3s ease;
             font-family: 'Roboto', sans-serif;
+            max-width: 300px;
+            word-wrap: break-word;
         `;
         
         // Agregar al DOM
@@ -152,7 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => {
-                document.body.removeChild(notification);
+                if (notification.parentNode) {
+                    document.body.removeChild(notification);
+                }
             }, 300);
         }, 3000);
         
@@ -184,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             document.head.appendChild(style);
         }
-    }
+    };
     
     // Simular datos iniciales
     updateCartCount(3);
@@ -197,9 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
         card.addEventListener('click', function() {
             const restaurantName = this.querySelector('h3').textContent;
             showNotification(`Redirigiendo a ${restaurantName}...`, 'info');
-            
-            // En una implementación real, redirigirías a la página del restaurante
-            // window.location.href = `/restaurante/${restaurantId}`;
         });
     });
     
@@ -212,6 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (window.innerWidth < 768) {
             userBtn.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 dropdownContent.style.display = 
                     dropdownContent.style.display === 'block' ? 'none' : 'block';
             });
@@ -222,18 +264,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     dropdownContent.style.display = 'none';
                 }
             });
+            
+            // Cerrar dropdown al hacer clic en un enlace
+            dropdownContent.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    dropdownContent.style.display = 'none';
+                }
+            });
         }
     }
     
-    // Función para simular la carga de datos
-    function simulateLoading() {
-        // Esta función simularía la carga de datos desde un servidor
-        console.log('Cargando datos de restaurantes...');
-        
-        // Simular una petición AJAX
-        setTimeout(() => {
-            showNotification('¡Datos actualizados!', 'info');
-        }, 2000);
+    // Búsqueda móvil
+    const mobileSearchBtn = document.querySelector('.mobile-search');
+    if (mobileSearchBtn) {
+        mobileSearchBtn.addEventListener('click', function() {
+            showNotification('Función de búsqueda móvil (próximamente)', 'info');
+        });
     }
     
     // Inicializar funcionalidades
