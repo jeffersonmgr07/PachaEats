@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pacha Eats • Productos</title>
+
+  <style>
+    :root{
+      --text:#111827;
+      --muted:#6b7280;
+
+      --brand:#e21f0c;
+      --bg:#f5ebdc;
+      --heroArrow:#d62300;
+
+      --shadow: 0 14px 30px rgba(17,24,39,.10);
+      --shadow2: 0 10px 22px rgba(17,24,39,.09);
+      --shadow3: 0 18px 40px rgba(17,24,39,.14);
+
+      --radiusHeader: 48px;
+      --radiusPill: 999px;
+      --radiusCard: 18px;
+
+      --max: 1180px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button,input,select{font:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 14px;}
+    .sr-only{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+
+    /* ================= HEADER (idéntico base) ================= */
+    header{
+      position:sticky;
+      top:0;
+      z-index:60;
+      background: rgba(245,235,220,.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .header-wrap{padding:4px 0 4px;}
+    .header-bar{
+      background: var(--brand);
+      border-radius: var(--radiusHeader);
+      box-shadow: var(--shadow3);
+      padding:4px 4px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      overflow:hidden;
+      position:relative;
+    }
+    .header-bar::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(120px 120px at 14% 0%, rgba(255,255,255,.16), transparent 60%),
+        radial-gradient(160px 160px at 82% 20%, rgba(255,255,255,.12), transparent 60%),
+        radial-gradient(220px 220px at 50% 120%, rgba(0,0,0,.14), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+
+    .logo{
+      width:36px; height:36px;
+      border-radius:0;
+      display:grid; place-items:center;
+      overflow:visible;
+      flex:0 0 auto;
+      background: transparent;
+      border:none;
+      box-shadow:none;
+      z-index:1;
+      margin-bottom: 7px;
+      margin-left: 14px;
+      margin-top: 1px;
+      margin-right: 0px;
+    }
+    .logo img{width:100%; height:100%; object-fit:contain; padding:0;}
+
+    .search{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#fff;
+      border-radius: var(--radiusPill);
+      padding:11px 12px;
+      flex: 1 1 360px;
+      min-width: 200px;
+      box-shadow: var(--shadow2);
+      z-index:1;
+      border:1px solid rgba(229,231,235,.85);
+    }
+    .search input{
+      border:none;
+      outline:none;
+      width:100%;
+      min-width:0;
+      font-size:14px;
+    }
+    .search input::placeholder{color:#9ca3af}
+
+    .info-block{
+      color:#fff;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 10px;
+      border-radius:16px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      white-space:nowrap;
+      flex:0 0 auto;
+      z-index:1;
+    }
+    .info-block .icon{width:28px; height:28px; display:grid; place-items:center; flex:0 0 auto;}
+    .info-block.delivery .icon{ width:36px; height:36px; }
+    .info-block .lines{display:flex; flex-direction:column; line-height:1.08; gap:2px;}
+    .info-block .top{font-weight:950; font-size:13px;}
+    .info-block .bottom{font-weight:750; font-size:12px; opacity:.95;}
+    .info-block .chev{margin-left:2px; font-weight:900; width:16px; display:grid; place-items:center;}
+
+    .cart-pill{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#fff;
+      border-radius: var(--radiusPill);
+      padding:10px 10px;
+      box-shadow: var(--shadow2);
+      flex:0 0 auto;
+      cursor:pointer;
+      border:1px solid rgba(229,231,235,.85);
+      z-index:1;
+    }
+    .cart-pill .total-badge{
+      background: var(--brand);
+      color:#fff;
+      border-radius: 999px;
+      padding:7px 10px;
+      font-weight:900;
+      font-size:12px;
+      line-height:1;
+      min-width:92px;
+      text-align:center;
+      box-shadow: 0 12px 22px rgba(226,31,12,.24);
+    }
+
+    /* Hover micro-interactions (como en tu index) */
+    button, .btn, a.btn, .product-card, .rest-pill, .cart-pill, .info-block {
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    button:hover, .btn:hover, a.btn:hover, .product-card:hover, .rest-pill:hover,
+    .cart-pill:hover, .info-block:hover {
+      transform: scale(1.03);
+    }
+
+    /* ================= MAIN ================= */
+    main{padding: 12px 0 44px;}
+
+    .page-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin: 16px 0 10px;
+    }
+    .page-head h1{margin:0; font-size: clamp(20px, 2.4vw, 28px); font-weight:950;}
+    .page-head p{margin:6px 0 0; color:#374151; font-size:14px; max-width:70ch;}
+
+    /* ================= RESTAURANTES (carrusel) ================= */
+    .rest-wrap{
+      margin: 10px 0 12px;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(0,0,0,.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .rest-inner{
+      padding: 12px 12px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .rest-inner::-webkit-scrollbar{display:none}
+
+    .rest-pill{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1.8px solid rgba(0,0,0,.18);
+      background:#fff;
+      box-shadow: 0 10px 18px rgba(17,24,39,.06);
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+      font-weight:950;
+      color:#374151;
+    }
+    .rest-pill .logoDot{
+      width:34px;height:34px;border-radius:999px;
+      display:grid;place-items:center;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      flex:0 0 auto;
+    }
+    .rest-pill .logoDot img{width:100%;height:100%;object-fit:contain;padding:6px}
+    .rest-pill.active{
+      border-color: var(--brand);
+      color: var(--brand);
+      box-shadow: 0 14px 22px rgba(226,31,12,.18);
+    }
+
+    /* ================= GRID PRODUCTOS ================= */
+    .toolbar{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin: 10px 0 12px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 10px 18px rgba(17,24,39,.05);
+      font-weight:950;
+      color:#374151;
+    }
+    .select{
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.12);
+      padding:10px 12px;
+      background:#fff;
+      outline:none;
+      min-width: 220px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .product-card{
+      border-radius: 16px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      padding: 14px 14px 16px;
+      min-height: 320px;
+    }
+    .p-imgbox{
+      height: 130px;
+      border-radius: 12px;
+      background: #ffffff;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .p-imgbox img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .p-name{
+      margin: 12px 0 0;
+      font-weight: 950;
+      font-size: 14px;
+      line-height: 1.15;
+      min-height: 34px;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .p-desc{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height:1.35;
+      min-height: 38px;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .p-meta{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .p-price{
+      margin-top: 6px;
+      font-weight: 950;
+      font-size: 16px;
+      color:#111827;
+    }
+    .p-actions{
+      margin-top:auto;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .p-add{
+      margin-top: 12px;
+      border-radius: 999px;
+      padding: 10px 12px;
+      background:#fff;
+      border: 2px solid var(--brand);
+      color: var(--brand);
+      font-weight: 950;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(17,24,39,.05);
+      transition: transform .08s ease, background .15s ease, filter .15s ease;
+      width: 150px;
+      align-self: flex-start;
+    }
+    .p-add:hover{background: rgba(226,31,12,.06); filter:brightness(1.02);}
+    .p-add:active{transform: translateY(1px);}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(226,31,12,.08);
+      border: 1px solid rgba(226,31,12,.18);
+      color: var(--brand);
+      font-weight:950;
+      font-size: 12px;
+    }
+
+    /* ================= MODAL PERSONALIZAR ================= */
+    #customModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      background: rgba(17,24,39,.55);
+      z-index: 9999;
+      padding: 18px;
+    }
+    #customModal.show { display:flex; }
+
+    .custom-sheet{
+      max-width: 640px;
+      width: 100%;
+      margin: 44px auto;
+      background:#fff;
+      border-radius: 22px;
+      overflow:hidden;
+      box-shadow: 0 28px 80px rgba(0,0,0,.35);
+      border:1px solid rgba(0,0,0,.10);
+    }
+    .custom-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      padding:14px;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      background: var(--brand);
+    }
+    .custom-title{margin:0; font-size:18px; font-weight:950; color:#fff;}
+    .custom-sub{margin:6px 0 0; color: rgba(255,255,255,.90); font-size:13px; line-height:1.3;}
+    .xbtn{
+      border:none;
+      background:#f3f4f6;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:14px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:950;
+    }
+    .custom-body{
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .opt-card{
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:18px;
+      padding:12px;
+      background:#fff;
+      box-shadow: 0 10px 18px rgba(17,24,39,.06);
+    }
+    .opt-card h4{margin:0 0 10px; font-size:14px; font-weight:950;}
+    .opt-grid{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
+    .opt{
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:16px;
+      padding:10px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      cursor:pointer;
+      user-select:none;
+      background:#fff;
+    }
+    .opt:hover{background:#fafafa}
+    .opt input{margin-top:2px}
+    .opt small{color:#6b7280; display:block; margin-top:3px}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+    .qty-box{display:flex; align-items:center; gap:8px;}
+    .qty-btn{
+      width:38px;height:38px;border-radius:14px;border:1px solid rgba(0,0,0,.10);
+      background:#f3f4f6;font-weight:950;cursor:pointer;
+    }
+    .qty-num{min-width:26px;text-align:center;font-weight:950;}
+    .add-btn{
+      border-radius:999px;
+      border:none;
+      background: var(--brand);
+      color:#fff;
+      font-weight:950;
+      padding:12px 14px;
+      cursor:pointer;
+      box-shadow: 0 16px 30px rgba(226,31,12,.20);
+    }
+
+    /* ================= CARRITO (MODAL) ================= */
+    #cartModal{display:none; position:fixed; inset:0; background:rgba(17,24,39,.55); z-index:9999;}
+    .cart-sheet{
+      max-width:560px;
+      margin:60px auto;
+      background:#fff;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow: 0 28px 80px rgba(0,0,0,.35);
+      border:1px solid rgba(0,0,0,.10);
+    }
+
+    /* ================= FOOTER (igual base) ================= */
+    footer{
+      background: var(--brand);
+      color:#fff;
+      margin-top: 0;
+      padding-top: 18px;
+    }
+    footer .fcol, footer, footer p, footer a { font-size: calc(1rem + 1px); }
+
+    .footer-inner{
+      padding: 26px 0;
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+      gap:18px;
+    }
+    .f-title{
+      font-weight:950;
+      margin: 0 0 10px;
+      font-size:14px;
+      color:#fff;
+    }
+    .f-muted{color: rgba(255,255,255,.86); font-size:13px; margin:0 0 10px; line-height:1.35;}
+    .f-links{display:flex; flex-direction:column; gap:8px; font-size:13px; color: rgba(255,255,255,.90);}
+    .f-links a{color: rgba(255,255,255,.92)}
+    .f-links a:hover{text-decoration:underline;color:#fff}
+
+    .footer-logo{
+      width: 120px;
+      height:auto;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
+    }
+
+    .contact-lines{font-size:13px;color: rgba(255,255,255,.92);display:flex;flex-direction:column;gap:8px;}
+    .social{display:flex; gap:10px; align-items:center; margin-top:10px;}
+    .social a{
+      width:34px;height:34px;border-radius:999px;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
+      display:grid;place-items:center;
+      box-shadow: 0 10px 18px rgba(0,0,0,.12);
+    }
+    .social svg *{stroke:#fff !important; fill:#fff !important;}
+
+    .book-plain{display:flex;flex-direction:column;gap:10px;}
+    .book-plain img{width:160px;max-width:100%;height:auto;object-fit:contain;background:transparent;}
+    .pay-plain{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;}
+    .pay-plain img{
+      height:22px;width:auto;background:#fff;border-radius:8px;border:1px solid rgba(255,255,255,.12);padding:6px 8px;
+    }
+
+    .footer-bottom{
+      border-top: 1px solid rgba(255,255,255,.18);
+      padding: 12px 0;
+      color: rgba(255,255,255,.85);
+      font-size:12px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 980px){
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+      .footer-inner{grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px){
+      main{padding-bottom: 72px;}
+      .grid{grid-template-columns: 1fr;}
+      .header-wrap .container{padding-left:0;padding-right:0;}
+      .header-bar{margin: 0 6px;}
+      .header-bar{
+        flex-wrap: nowrap;
+        padding: 0px 4px;
+        gap: 6px;
+        height: 55px;
+      }
+      .logo{width:30px;height:30px;margin-bottom:4px;margin-left:10px;}
+      .search{
+        flex: 1 1 auto;
+        height: 36px;
+        min-width: 0;
+        margin: 6px 0;
+        padding: 0 10px;
+      }
+      .cart-pill{
+        height: 36px;
+        padding: 6px 6px;
+        gap: 1px;
+        margin-right: 10px;
+      }
+      .cart-pill .total-badge{min-width:70px;padding:4px 3px;font-size:11px;}
+      .info-block{display:none !important;}
+
+      .footer-inner{grid-template-columns: 1fr; gap:0;}
+      .footer-inner > div{border-bottom: 1px solid rgba(255,255,255,0.18); padding: 10px 0;}
+      .footer-inner > div:last-child{border-bottom:none;}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-wrap">
+    <div class="container">
+      <div class="header-bar">
+        <!-- Logo: vuelve al index -->
+        <a class="logo" href="index.html" aria-label="Pacha Eats (Ir a inicio)">
+          <img src="img/logos/Logo1.png" alt="Logo Pacha Eats">
+        </a>
+
+        <!-- Búsqueda: filtra productos -->
+        <div class="search" role="search" aria-label="Buscar productos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.3-4.3m1.3-5.2a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+              stroke="#e21f0c" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <label class="sr-only" for="q">Buscar</label>
+          <input id="q" type="search" placeholder="Buscar en este restaurante..." />
+        </div>
+
+        <a class="info-block delivery" href="#" aria-label="Comienza tu pedido - Ingresa una ubicación">
+          <div class="icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+              <path d="M4 14h3l2-4h4l2 3h1.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 10h2.2l2.3 2.4" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M7 18a2.2 2.2 0 100-4.4A2.2 2.2 0 007 18Z" stroke="white" stroke-width="1.6"/>
+              <path d="M18 18a2.2 2.2 0 100-4.4A2.2 2.2 0 0018 18Z" stroke="white" stroke-width="1.6"/>
+              <path d="M3 10h4" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M2.5 12h3.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="lines">
+            <div class="top">Comienza tu pedido</div>
+            <div class="bottom">Ingresa una ubicación</div>
+          </div>
+          <div class="chev" aria-hidden="true">▼</div>
+        </a>
+
+        <button class="cart-pill" id="openCart" type="button" aria-label="Abrir carrito">
+          <span aria-hidden="true" style="display:grid;place-items:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M6 6h15l-2 9H7L6 6Z" stroke="#e21f0c" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M6 6 5 3H2" stroke="#e21f0c" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="9" cy="20" r="1.6" fill="#e21f0c"/>
+              <circle cx="18" cy="20" r="1.6" fill="#e21f0c"/>
+            </svg>
+          </span>
+          <span class="total-badge" id="cartTotalBadge">S/ 0.00</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="page-head">
+      <div>
+        <h1>Productos</h1>
+        <p id="restDesc">Selecciona un restaurante para ver su carta.</p>
+      </div>
+
+      <a class="chip" href="index.html" aria-label="Volver al inicio">
+        <span aria-hidden="true">←</span> Volver
+      </a>
+    </div>
+
+    <!-- Restaurantes -->
+    <section class="rest-wrap" aria-label="Restaurantes">
+      <div class="rest-inner" id="restList"></div>
+    </section>
+
+    <!-- Filtros -->
+    <div class="toolbar" aria-label="Filtros">
+      <div class="chip" id="resultCount">0 productos</div>
+
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <select class="select" id="sortSelect" aria-label="Ordenar">
+          <option value="reco">Ordenar: Recomendados</option>
+          <option value="priceAsc">Precio: menor a mayor</option>
+          <option value="priceDesc">Precio: mayor a menor</option>
+          <option value="nameAsc">Nombre: A → Z</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <section aria-label="Lista de productos">
+      <div class="grid" id="grid"></div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ================= MODAL PERSONALIZAR ================= -->
+<div id="customModal" aria-hidden="true">
+  <div class="custom-sheet" role="dialog" aria-label="Personaliza tu producto">
+    <div class="custom-head">
+      <div>
+        <h3 class="custom-title" id="customTitle">Personaliza tu producto</h3>
+        <p class="custom-sub" id="customSub">Elige opciones disponibles.</p>
+      </div>
+      <button class="xbtn" id="closeCustom" type="button">✕</button>
+    </div>
+
+    <div class="custom-body">
+      <div class="opt-card" id="optBlock1" style="display:none;">
+        <h4 id="opt1Title">Opciones</h4>
+        <div class="opt-grid" id="opt1Grid"></div>
+      </div>
+
+      <div class="opt-card" id="optBlock2" style="display:none;">
+        <h4 id="opt2Title">Opciones</h4>
+        <div class="opt-grid" id="opt2Grid"></div>
+      </div>
+
+      <div class="opt-card">
+        <h4>Cantidad</h4>
+        <div class="row">
+          <div style="color:#6b7280; font-size:13px;">Ajusta cuántas unidades deseas.</div>
+          <div class="qty-box">
+            <button class="qty-btn" id="qtyDec" type="button">−</button>
+            <div class="qty-num" id="qtyNum">1</div>
+            <button class="qty-btn" id="qtyInc" type="button">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div style="font-size:12px; color:#6b7280;">Total</div>
+          <div style="font-weight:950; font-size:18px;" id="customTotal">S/ 0.00</div>
+          <div style="font-size:12px; color:#6b7280;" id="customBreakdown"></div>
+        </div>
+        <button class="add-btn" id="addFromCustom" type="button">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CARRITO (MODAL) ================= -->
+<div id="cartModal" aria-hidden="true">
+  <div class="cart-sheet">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:14px; border-bottom:1px solid rgba(0,0,0,.08); background: linear-gradient(180deg, #fff, #fff6ef);">
+      <strong>🛒 Tu carrito</strong>
+      <button id="closeCart" type="button"
+        style="border:none; background:#f3f4f6; border:1px solid rgba(0,0,0,.10); border-radius:14px; padding:8px 10px; cursor:pointer; font-weight:950;">✕</button>
+    </div>
+
+    <div id="cartItems" style="padding:14px; display:flex; flex-direction:column; gap:10px; max-height:55vh; overflow:auto;"></div>
+
+    <div style="padding:14px; border-top:1px solid rgba(0,0,0,.08); display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+      <strong>Total: <span id="cartTotalText">S/ 0.00</span></strong>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button id="clearCart" type="button"
+          style="border-radius:999px; border:1px solid rgba(0,0,0,.10); background:#fff; padding:10px 12px; font-weight:950; cursor:pointer;">Vaciar</button>
+        <button id="checkout" type="button"
+          style="border-radius:999px; border:none; background:#111; color:#fff; padding:10px 12px; font-weight:950; cursor:pointer;">Finalizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+
+      <div>
+        <img class="footer-logo" src="img/logos/Logo2.png" alt="Logo Pacha Eats">
+        <div class="f-title">Conéctate con nosotros</div>
+
+        <div class="contact-lines">
+          <div><b>Whatsapp:</b> +51925915905</div>
+          <div><b>Correo:</b> contacto@pachaeats.com</div>
+        </div>
+
+        <div class="social" aria-label="Redes">
+          <a href="#" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5Z" stroke="#fff" stroke-width="1.8"/>
+              <path d="M12 17a5 5 0 100-10 5 5 0 000 10Z" stroke="#fff" stroke-width="1.8"/>
+              <path d="M17.5 6.5h.01" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M14 8h3V5h-3a4 4 0 00-4 4v3H7v3h3v7h3v-7h3l1-3h-4V9a1 1 0 011-1Z" fill="#fff"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14 3v10.2a4.3 4.3 0 11-3.2-4.1V6.7a7.8 7.8 0 003.2 1.2c1.1.2 2.3.1 3.4-.2V4.5c-1.2.4-2.5.4-3.7-.1A4.7 4.7 0 0114 3Z" fill="#fff"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="f-title">Sobre Nosotros</div>
+        <div class="f-links">
+          <a href="#">Trabaja con nosotros</a>
+          <a href="#">Horarios, locales y zonas de reparto</a>
+          <a href="#">Ventas corporativas</a>
+          <a href="#">Comprobantes electrónicos</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="f-title">Políticas &amp; Términos</div>
+        <div class="f-links">
+          <a href="#">Términos y condiciones de la web</a>
+          <a href="#">Políticas de privacidad</a>
+          <a href="#">Políticas de delivery y pick up</a>
+          <a href="#">Términos y condiciones de promociones y campañas</a>
+          <a href="#">Línea Ética</a>
+          <a href="#">Política de cookies</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="f-title">Libro de reclamaciones</div>
+        <div class="book-plain">
+          <img src="img/logos/Libro.png" alt="Libro de reclamaciones">
+        </div>
+
+        <div class="f-title" style="margin-top:14px;">Métodos de Pago</div>
+        <div class="pay-plain">
+          <img alt="Visa" src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg">
+          <img alt="Mastercard" src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg">
+          <img alt="Amex" src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="year"></span> Pacha Eats. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ================== HELPERS ==================
+  const CART_KEY = "pacha_cart_v14"; // mismo key del index para compartir carrito
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+  const money = (n) => "S/ " + Number(n||0).toFixed(2);
+  const escapeHtml = (str) => String(str).replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+
+  function getParam(name){
+    const u = new URL(location.href);
+    return u.searchParams.get(name);
+  }
+
+  // ================== DATA: RESTAURANTES ==================
+  const restaurants = [
+    {
+      id: "pacha-wok",
+      name: "Pacha Wok",
+      desc: "El sabor oriental con ingredientes peruanos fusionado por nuestros maestros al wok.",
+      logo: "img/restaurantes/PachaWok.png" // si no existe, no pasa nada (se verá el fallback)
+    },
+    { id: "jijunas", name: "Jijuna's", desc: "Próximamente", logo: "img/restaurantes/Jijunas.png" },
+    { id: "delipizza", name: "Delipizza", desc: "Próximamente", logo: "img/restaurantes/Delipizza.png" },
+    { id: "qori-chicken", name: "Qori Chicken", desc: "Próximamente", logo: "img/restaurantes/QoriChicken.png" }
+  ];
+
+  // ================== DATA: PRODUCTOS ==================
+  // NOTE: img = placeholder; luego lo reemplazamos por tus fotos reales
+  const products = [
+    // ===== PACHA WOK =====
+    {
+      id: "pw-wantan-frito",
+      restaurant: "pacha-wok",
+      name: "Wantan frito",
+      desc: "Porción de wantanes rellenos acompañados con salsa tamarindo.",
+      basePrice: 9.00,
+      img: "https://images.unsplash.com/photo-1604908176997-125f25cc500f?auto=format&fit=crop&w=1200&q=80",
+      options: [
+        {
+          type: "radio",
+          key: "tamano",
+          title: "Tamaño (Obligatorio)",
+          required: true,
+          items: [
+            { id:"6",  label:"6 und",  add: 0.00 },
+            { id:"12", label:"12 und", add: 7.00 }
+          ],
+          defaultId: "6"
+        }
+      ]
+    },
+    {
+      id: "pw-wantanes-pacha-wok",
+      restaurant: "pacha-wok",
+      name: "Wantanes Pacha Wok",
+      desc: "Wantan frito relleno con chanchito y langostinos picados, acompañado de tamarindo Kam Lu.",
+      basePrice: 7.00,
+      img: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1200&q=80",
+      options: [
+        {
+          type: "radio",
+          key: "tamano",
+          title: "Tamaño (Obligatorio)",
+          required: true,
+          items: [
+            { id:"3",  label:"3 und",  add: 0.00 },
+            { id:"6",  label:"6 und",  add: 5.00 },
+            { id:"12", label:"12 und", add: 14.00 }
+          ],
+          defaultId: "3"
+        }
+      ]
+    },
+    {
+      id: "pw-sopa-wantan",
+      restaurant: "pacha-wok",
+      name: "Sopa Wantán",
+      desc: "Tradicional sopa a base de wantan relleno. Pídela de pollo, chancho o especial.",
+      basePrice: 15.00,
+      img: "https://images.unsplash.com/photo-1543353071-087092ec393a?auto=format&fit=crop&w=1200&q=80",
+      options: [
+        {
+          type: "radio",
+          key: "tipo",
+          title: "Tipo de sopa (Obligatorio)",
+          required: true,
+          items: [
+            { id:"pollo",    label:"Pollo",    add: 0.00 },
+            { id:"chancho",  label:"Chancho",  add: 5.00 },
+            { id:"especial", label:"Especial", add: 7.00 }
+          ],
+          defaultId: "pollo"
+        }
+      ]
+    },
+    { id:"pw-sopa-pac-pow", restaurant:"pacha-wok", name:"Sopa Pac Pow", desc:"Mezcla de fideo fansy + huevo batido.", basePrice:17.00, img:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-sopa-womin", restaurant:"pacha-wok", name:"Sopa Womín", desc:"Sopa a base de pollo.", basePrice:16.00, img:"https://images.unsplash.com/photo-1604908812911-9bbf2dbe8932?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-sopa-fuchifu", restaurant:"pacha-wok", name:"Sopa Fuchifú", desc:"Mezcla perfecta de huevo batido y verduras picadas.", basePrice:17.00, img:"https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-arroz-chaufa", restaurant:"pacha-wok", name:"Arroz Chaufa", desc:"Clásico chaufa flameado en el wok (elige carnes luego).", basePrice:18.00, img:"https://images.unsplash.com/photo-1604909052743-94b2074fa343?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-aeropuerto", restaurant:"pacha-wok", name:"Aeropuerto", desc:"Infaltable en nuestra carta, toque flameado.", basePrice:20.00, img:"https://images.unsplash.com/photo-1540914124281-342587941389?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-tallarin-saltado", restaurant:"pacha-wok", name:"Tallarín saltado", desc:"Tallarín y verduras salteadas en el wok.", basePrice:18.00, img:"https://images.unsplash.com/photo-1604908176702-3a1b78c6c6aa?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-combinado", restaurant:"pacha-wok", name:"Combinado", desc:"Tallarín saltado + chaufa flameado.", basePrice:20.00, img:"https://images.unsplash.com/photo-1604908176997-125f25cc500f?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-tipakay", restaurant:"pacha-wok", name:"Tipakay", desc:"Pollo empanizado en salsa tamarindo + chaufa.", basePrice:20.00, img:"https://images.unsplash.com/photo-1604908177157-d9f0a8f2c2df?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-chijaukay", restaurant:"pacha-wok", name:"Chijaukay", desc:"Pollo en salsa mensí/tausí/sillao + chaufa.", basePrice:20.00, img:"https://images.unsplash.com/photo-1604908177018-2f26f6d8f4cd?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-pollo-verduras", restaurant:"pacha-wok", name:"Pollo con verduras", desc:"Pollo y verduras al wok con salsa de ostión + chaufa.", basePrice:19.00, img:"https://images.unsplash.com/photo-1604908177157-d9f0a8f2c2df?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-pollo-pina", restaurant:"pacha-wok", name:"Pollo con piña", desc:"Pechuga y piña en salsa tamarindo + chaufa.", basePrice:21.00, img:"https://images.unsplash.com/photo-1604908176702-3a1b78c6c6aa?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-kam-lu-wantan", restaurant:"pacha-wok", name:"Kam lú wantan", desc:"Pollo/chancho/res/verduras/wantanes en tamarindo + chaufa.", basePrice:21.00, img:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-tallarin-taypa", restaurant:"pacha-wok", name:"Tallarín Taypá", desc:"Tallarín con todas las carnes + verduras al wok y a la plancha.", basePrice:33.00, img:"https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-lomo-chaufero", restaurant:"pacha-wok", name:"Lomo chaufero", desc:"Lomo saltado con toque oriental + papas fritas y chaufa.", basePrice:24.00, img:"https://images.unsplash.com/photo-1604908177018-2f26f6d8f4cd?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-aeropuer-top", restaurant:"pacha-wok", name:"Aeropuer-TOP", desc:"Aeropuerto todas las carnes + porción Chijaukay + porción Tipakay.", basePrice:39.90, img:"https://images.unsplash.com/photo-1540914124281-342587941389?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-combo-2", restaurant:"pacha-wok", name:"Combo para 2", desc:"Chaufa grande + Chi Jau Kay + Tipakay + 4 wantanes fritos.", basePrice:44.90, img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-combo-fam-1", restaurant:"pacha-wok", name:"Combo familiar 1", desc:"2 chaufa grande + Chi Jau Kay + Kam Lu Wantan + Tallarín especial + 12 wantanes.", basePrice:135.00, img:"https://images.unsplash.com/photo-1618213837799-25d5552820d1?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-combo-fam-2", restaurant:"pacha-wok", name:"Combo familiar 2", desc:"2 chaufa grande + Tipakay + Taypa + Tallarín especial + 12 wantanes.", basePrice:145.00, img:"https://images.unsplash.com/photo-1618213837799-25d5552820d1?auto=format&fit=crop&w=1200&q=80", options:[] },
+    { id:"pw-combo-8", restaurant:"pacha-wok", name:"Combo para 8", desc:"2 chaufa grande + aeropuerto chancho + Tipakay + Chijaukay + Kam Lu Wantan + tallarín especial + 12 wantanes.", basePrice:160.00, img:"https://images.unsplash.com/photo-1618213837799-25d5552820d1?auto=format&fit=crop&w=1200&q=80", options:[] }
+  ];
+
+  // ================== CART ==================
+  let cart = loadCart();
+  function loadCart(){
+    try{ const raw = localStorage.getItem(CART_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch(e){ return {}; }
+  }
+  function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+  function cartTotal(){ return Object.values(cart).reduce((acc, it) => acc + it.price*it.qty, 0); }
+  function addToCartLine({ key, name, price, qty }){
+    if(!cart[key]) cart[key] = { id:key, name, price, qty:0 };
+    cart[key].qty += qty;
+    saveCart();
+    renderCartBadge();
+  }
+  function changeQty(key, delta){
+    if(!cart[key]) return;
+    cart[key].qty += delta;
+    if(cart[key].qty <= 0) delete cart[key];
+    saveCart();
+    renderCartBadge();
+    renderCartModal();
+  }
+  function clearCart(){ cart = {}; saveCart(); renderCartBadge(); renderCartModal(); }
+  function renderCartBadge(){
+    $("#cartTotalBadge").textContent = money(cartTotal());
+    $("#cartTotalText").textContent = money(cartTotal());
+  }
+
+  // ================== UI: Restaurantes ==================
+  let activeRest = restaurants[0]?.id || null;
+
+  function setActiveRestaurant(restId){
+    activeRest = restId;
+    $("#q").value = "";
+    renderRestList();
+    renderGrid();
+    updateRestHeader();
+    // guarda preferencia en la url (para share/volver desde index)
+    const u = new URL(location.href);
+    u.searchParams.set("rest", restId);
+    history.replaceState({}, "", u.toString());
+  }
+
+  function updateRestHeader(){
+    const r = restaurants.find(x => x.id === activeRest);
+    $("#restDesc").textContent = r ? r.desc : "Selecciona un restaurante para ver su carta.";
+  }
+
+  function renderRestList(){
+    const root = $("#restList");
+    root.innerHTML = "";
+
+    restaurants.forEach(r => {
+      const el = document.createElement("div");
+      el.className = "rest-pill" + (r.id === activeRest ? " active" : "");
+      const safeLogo = r.logo || "";
+      el.innerHTML = `
+        <span class="logoDot" aria-hidden="true">
+          <img src="${safeLogo}" alt="" onerror="this.style.display='none'; this.parentElement.textContent='🍽️'; this.parentElement.style.fontWeight='950';">
+        </span>
+        <span>${escapeHtml(r.name)}</span>
+      `;
+      el.addEventListener("click", () => setActiveRestaurant(r.id));
+      root.appendChild(el);
+    });
+  }
+
+  // ================== UI: Grid ==================
+  function productCardHTML(p){
+    const hasOptions = (p.options && p.options.length);
+    return `
+      <article class="product-card">
+        <div class="p-imgbox">
+          <img src="${p.img}" alt="${escapeHtml(p.name)}">
+        </div>
+
+        <p class="p-name">${escapeHtml(p.name)}</p>
+        <p class="p-desc">${escapeHtml(p.desc || "")}</p>
+
+        <div class="p-meta">Precio desde</div>
+        <div class="p-price">${money(p.basePrice)}</div>
+
+        <div class="p-actions">
+          <span class="badge">${hasOptions ? "Personalizable" : "Rápido"}</span>
+          <button class="p-add" type="button" data-open-custom="${p.id}">
+            Agregar
+          </button>
+        </div>
+      </article>
+    `;
+  }
+
+  function currentList(){
+    const q = ($("#q").value || "").trim().toLowerCase();
+    let list = products.filter(p => p.restaurant === activeRest);
+
+    if(q){
+      list = list.filter(p => (p.name + " " + (p.desc||"")).toLowerCase().includes(q));
+    }
+
+    // sorting
+    const mode = $("#sortSelect").value;
+    const byName = (a,b) => a.name.localeCompare(b.name, "es");
+    const byPriceAsc = (a,b) => (a.basePrice||0) - (b.basePrice||0);
+    const byPriceDesc = (a,b) => (b.basePrice||0) - (a.basePrice||0);
+
+    if(mode === "nameAsc") list = list.slice().sort(byName);
+    else if(mode === "priceAsc") list = list.slice().sort(byPriceAsc);
+    else if(mode === "priceDesc") list = list.slice().sort(byPriceDesc);
+    // reco = orden tal cual
+
+    return list;
+  }
+
+  function renderGrid(){
+    const root = $("#grid");
+    const list = currentList();
+
+    $("#resultCount").textContent = `${list.length} producto${list.length===1?"":"s"}`;
+
+    if(!list.length){
+      root.innerHTML = `
+        <div style="grid-column:1/-1; border:1px dashed rgba(0,0,0,.18); border-radius:18px; padding:14px; background:#fff; color:#6b7280;">
+          No hay productos para mostrar (aún) o no coincide la búsqueda.
+        </div>
+      `;
+      return;
+    }
+
+    root.innerHTML = list.map(productCardHTML).join("");
+
+    root.querySelectorAll("[data-open-custom]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-open-custom");
+        const p = products.find(x => x.id === id);
+        if(!p) return;
+        openCustomize(p, btn);
+      });
+    });
+  }
+
+  $("#q").addEventListener("input", renderGrid);
+  $("#sortSelect").addEventListener("change", renderGrid);
+
+  // ================== MODAL PERSONALIZAR (dinámico por producto) ==================
+  let customProduct = null;
+  let customQty = 1;
+  let selections = {};     // { optionKey: itemId }
+  let lastTriggerEl = null;
+
+  function openCustomize(p, triggerEl){
+    customProduct = p;
+    lastTriggerEl = triggerEl || null;
+    customQty = 1;
+    selections = {};
+
+    $("#qtyNum").textContent = "1";
+
+    $("#customTitle").textContent = "Personaliza tu producto";
+    $("#customSub").textContent = `${p.name} • ${money(p.basePrice)}`;
+
+    renderCustomOptions();
+    updateCustomTotal();
+
+    $("#customModal").classList.add("show");
+    $("#customModal").setAttribute("aria-hidden","false");
+  }
+
+  function closeCustomize(){
+    $("#customModal").classList.remove("show");
+    $("#customModal").setAttribute("aria-hidden","true");
+    customProduct = null;
+    lastTriggerEl = null;
+    selections = {};
+  }
+
+  $("#closeCustom").addEventListener("click", closeCustomize);
+  $("#customModal").addEventListener("click", (e) => {
+    if(e.target.id === "customModal") closeCustomize();
+  });
+
+  function renderOptionBlock(blockIndex, opt){
+    const block = blockIndex === 1 ? $("#optBlock1") : $("#optBlock2");
+    const title = blockIndex === 1 ? $("#opt1Title") : $("#opt2Title");
+    const grid  = blockIndex === 1 ? $("#opt1Grid")  : $("#opt2Grid");
+
+    if(!opt){
+      block.style.display = "none";
+      grid.innerHTML = "";
+      return;
+    }
+
+    block.style.display = "block";
+    title.textContent = opt.title || "Opciones";
+    grid.innerHTML = "";
+
+    // default
+    if(opt.type === "radio"){
+      const def = opt.defaultId || (opt.items?.[0]?.id);
+      if(def && !selections[opt.key]) selections[opt.key] = def;
+    }
+
+    opt.items.forEach(item => {
+      const isRadio = opt.type === "radio";
+      const checked = isRadio ? (selections[opt.key] === item.id) : false;
+
+      const el = document.createElement("label");
+      el.className = "opt";
+      el.innerHTML = `
+        <input type="${isRadio ? "radio" : "checkbox"}" name="${escapeHtml(opt.key)}" ${checked ? "checked": ""}>
+        <div>
+          <div style="font-weight:950;">${escapeHtml(item.label)}</div>
+          <small>${item.add ? `+${money(item.add)}` : "+S/ 0.00"}</small>
+        </div>
+      `;
+
+      el.addEventListener("click", () => {
+        if(isRadio){
+          selections[opt.key] = item.id;
+        }
+        renderCustomOptions();
+        updateCustomTotal();
+      });
+
+      grid.appendChild(el);
+    });
+  }
+
+  function renderCustomOptions(){
+    const opts = (customProduct?.options || []);
+    renderOptionBlock(1, opts[0] || null);
+    renderOptionBlock(2, opts[1] || null);
+  }
+
+  $("#qtyDec").addEventListener("click", () => {
+    customQty = Math.max(1, customQty - 1);
+    $("#qtyNum").textContent = String(customQty);
+    updateCustomTotal();
+  });
+  $("#qtyInc").addEventListener("click", () => {
+    customQty = Math.min(99, customQty + 1);
+    $("#qtyNum").textContent = String(customQty);
+    updateCustomTotal();
+  });
+
+  function getOptionAdd(opt){
+    if(!opt) return 0;
+    const chosenId = selections[opt.key];
+    const item = opt.items.find(x => x.id === chosenId);
+    return item ? (item.add || 0) : 0;
+  }
+
+  function getOptionLabel(opt){
+    if(!opt) return "";
+    const chosenId = selections[opt.key];
+    const item = opt.items.find(x => x.id === chosenId);
+    return item ? item.label : "";
+  }
+
+  function updateCustomTotal(){
+    if(!customProduct) return;
+
+    const opts = customProduct.options || [];
+    const add1 = getOptionAdd(opts[0]);
+    const add2 = getOptionAdd(opts[1]);
+
+    const unit = (customProduct.basePrice || 0) + add1 + add2;
+    const total = unit * customQty;
+
+    const parts = [];
+    if(opts[0]) parts.push(`${opts[0].title}: ${getOptionLabel(opts[0])}`);
+    if(opts[1]) parts.push(`${opts[1].title}: ${getOptionLabel(opts[1])}`);
+
+    $("#customTotal").textContent = money(total);
+    $("#customBreakdown").textContent =
+      `Unidad: ${money(unit)}` + (parts.length ? ` • ${parts.join(" • ")}` : "");
+  }
+
+  $("#addFromCustom").addEventListener("click", () => {
+    if(!customProduct) return;
+
+    // Validación de obligatorios
+    const opts = customProduct.options || [];
+    for(const opt of opts){
+      if(opt?.required && !selections[opt.key]){
+        alert("Selecciona: " + (opt.title || "opción"));
+        return;
+      }
+    }
+
+    const add1 = getOptionAdd(opts[0]);
+    const add2 = getOptionAdd(opts[1]);
+    const unitPrice = (customProduct.basePrice || 0) + add1 + add2;
+
+    const labels = [];
+    if(opts[0]) labels.push(getOptionLabel(opts[0]));
+    if(opts[1]) labels.push(getOptionLabel(opts[1]));
+
+    const lineName =
+      `${customProduct.name}` +
+      (labels.filter(Boolean).length ? ` (${labels.filter(Boolean).join(" • ")})` : "");
+
+    // key única por selección
+    const optKeyStr = opts.map(o => (o ? `${o.key}:${selections[o.key]||""}` : "")).join("|");
+    const key = `${customProduct.id}|${optKeyStr}|unit:${unitPrice.toFixed(2)}`;
+
+    addToCartLine({ key, name: lineName, price: unitPrice, qty: customQty });
+    closeCustomize();
+  });
+
+  // ================== CARRITO MODAL ==================
+  function openCart(){
+    renderCartModal();
+    $("#cartModal").style.display="block";
+    $("#cartModal").setAttribute("aria-hidden","false");
+  }
+  function closeCart(){
+    $("#cartModal").style.display="none";
+    $("#cartModal").setAttribute("aria-hidden","true");
+  }
+  $("#openCart").addEventListener("click", openCart);
+  $("#closeCart").addEventListener("click", closeCart);
+  $("#cartModal").addEventListener("click", (e)=>{ if(e.target.id==="cartModal") closeCart(); });
+
+  $("#clearCart").addEventListener("click", ()=>{ if(confirm("¿Vaciar carrito?")) clearCart(); });
+
+  $("#checkout").addEventListener("click", ()=>{
+    const total = cartTotal();
+    if(total<=0){ alert("Tu carrito está vacío."); return; }
+    const items = Object.values(cart).map(i => `• ${i.qty} x ${i.name} (${money(i.price)})`).join("\n");
+    alert(`Pedido (demo)\n\n${items}\n\nTotal: ${money(total)}`);
+  });
+
+  function renderCartModal(){
+    const root = $("#cartItems");
+    root.innerHTML = "";
+    const items = Object.values(cart);
+
+    if(items.length === 0){
+      root.innerHTML = `<div style="border:1px dashed rgba(0,0,0,.12); border-radius:18px; padding:12px; color:#6b7280; background:#fafafa;">
+        Tu carrito está vacío. Agrega productos con el botón "Agregar".
+      </div>`;
+      $("#cartTotalText").textContent = money(0);
+      return;
+    }
+
+    items.forEach(it => {
+      const row = document.createElement("div");
+      row.style.cssText = "border:1px solid rgba(0,0,0,.10); border-radius:18px; padding:12px; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; box-shadow: 0 10px 18px rgba(17,24,39,.06); background:#fff;";
+      row.innerHTML = `
+        <div style="min-width:0;">
+          <div style="font-weight:950; font-size:14px; margin-bottom:6px;">${escapeHtml(it.name)}</div>
+          <div style="color:#6b7280; font-size:13px;">${money(it.price)} c/u</div>
+          <div style="color:#6b7280; font-size:13px;"><strong>Subtotal:</strong> ${money(it.price * it.qty)}</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button type="button" data-act="dec" data-id="${escapeHtml(it.id)}" style="width:36px;height:36px;border-radius:14px;border:1px solid rgba(0,0,0,.10);background:#f3f4f6;font-weight:950;cursor:pointer;">−</button>
+          <strong style="min-width:18px; text-align:center;">${it.qty}</strong>
+          <button type="button" data-act="inc" data-id="${escapeHtml(it.id)}" style="width:36px;height:36px;border-radius:14px;border:1px solid rgba(0,0,0,.10);background:#f3f4f6;font-weight:950;cursor:pointer;">+</button>
+        </div>
+      `;
+      root.appendChild(row);
+    });
+
+    $$("#cartItems [data-act]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.id;
+        const act = btn.dataset.act;
+        changeQty(id, act === "inc" ? 1 : -1);
+      });
+    });
+
+    $("#cartTotalText").textContent = money(cartTotal());
+  }
+
+  // ================== INIT ==================
+  (function init(){
+    // preselección por URL:
+    // - productos.html?rest=pacha-wok
+    // - productos.html?rest=Pacha%20Wok  (acepta nombre también)
+    const restParam = (getParam("rest") || "").trim();
+
+    if(restParam){
+      const byId = restaurants.find(r => r.id === restParam);
+      const byName = restaurants.find(r => r.name.toLowerCase() === restParam.toLowerCase());
+      if(byId) activeRest = byId.id;
+      else if(byName) activeRest = byName.id;
+    }
+
+    renderRestList();
+    updateRestHeader();
+    renderGrid();
+    renderCartBadge();
+    $("#year").textContent = String(new Date().getFullYear());
+  })();
+</script>
+
+</body>
+</html>
