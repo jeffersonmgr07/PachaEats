@@ -1367,8 +1367,9 @@
     $("#cartTotalText").textContent = money(cartTotal());
   }
 
-  // ================== UI: TABS + MENU RENDER ==================
-  let activeSection = "all";
+// ================== UI: TABS + MENU RENDER ==================
+  let activeSection = "all"; // ✅ al iniciar: TODO
+  
   function buildTabs(){
     const root = $("#tabs");
     root.innerHTML = "";
@@ -1390,7 +1391,7 @@
     // Tabs por categoría
     SECTIONS.forEach(s => {
       const b = document.createElement("button");
-      b.className = "tab" + (s.id===activeSection ? " active" : "");
+      b.className = "tab" + (s.id === activeSection ? " active" : "");
       b.type = "button";
       b.textContent = s.name;
       b.addEventListener("click", () => {
@@ -1404,6 +1405,66 @@
     });
   }
   
+  function renderMenu(){
+    const root = $("#menuRoot");
+    const q = ($("#q").value || "").trim().toLowerCase();
+  
+    // ✅ Si por algún motivo activeSection está mal, lo corregimos
+    if (activeSection !== "all" && !SECTIONS.some(s => s.id === activeSection)) {
+      activeSection = "all";
+    }
+  
+    const secName =
+      activeSection === "all"
+        ? "Todos los productos"
+        : (SECTIONS.find(s => s.id === activeSection)?.name || "Carta");
+  
+    // ✅ Lista base (TODOS)
+    let list = Array.isArray(menu) ? menu.slice() : [];
+  
+    // ✅ Filtra SOLO si eliges una categoría
+    if (activeSection !== "all") {
+      list = list.filter(p => p.section === activeSection);
+    }
+  
+    // ✅ Búsqueda
+    if (q) {
+      list = list.filter(p => (p.name + " " + (p.desc || "")).toLowerCase().includes(q));
+    }
+  
+    root.innerHTML = `
+      <div class="block-title">
+        <h3>${escapeHtml(secName)}</h3>
+        <small>${list.length} item(s)</small>
+      </div>
+      <div class="grid">
+        ${
+          list.length
+            ? list.map(productCardHTML).join("")
+            : `<div style="grid-column:1/-1; background:rgba(255,255,255,.88); border:1px dashed rgba(0,0,0,.15); border-radius:18px; padding:14px; color:#6b7280;">
+                No se encontraron productos con ese nombre.
+              </div>`
+        }
+      </div>
+    `;
+  
+    root.querySelectorAll("[data-open-custom]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-open-custom");
+        const p = menu.find(x => x.id === id);
+        if(!p) return;
+        openCustomize(p);
+      });
+    });
+  }
+  
+  // ✅ INIT (IMPORTANTE)
+  activeSection = "all";
+  buildTabs();
+  renderMenu();
+  renderCartBadge();
+  $("#year").textContent = String(new Date().getFullYear());
+
   function productCardHTML(p){
     return `
       <article class="p-card product-card" data-section="${escapeHtml(p.section)}" data-name="${escapeHtml((p.name+" "+(p.desc||"")).toLowerCase())}">
