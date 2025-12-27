@@ -711,12 +711,6 @@
         <div class="rest-copy" style="min-width:240px; flex:1;">
           <h1>Pacha Wok</h1>
           <p><b>El sabor oriental del Valle</b>, con ese toque chifa peruano que enamora: wok al fuego, sillao, tamarindo y combinaciones clásicas (¡chaufa, aeropuerto, tallarín!) hechas para compartir.</p>
-          <div class="rest-badges" aria-label="Características">
-            <span class="badge">🔥 Wok flameado</span>
-            <span class="badge">🥟 Wantanes & Dim Sums</span>
-            <span class="badge">🍜 Sopas chifa</span>
-            <span class="badge">👨‍👩‍👧‍👦 Banquetes familiares</span>
-          </div>
         </div>
       </div>
     </section>
@@ -1374,10 +1368,26 @@
   }
 
   // ================== UI: TABS + MENU RENDER ==================
-  let activeSection = "combos";
+  let activeSection = "all";
   function buildTabs(){
     const root = $("#tabs");
     root.innerHTML = "";
+  
+    // Tab "Todos"
+    const allBtn = document.createElement("button");
+    allBtn.className = "tab" + (activeSection === "all" ? " active" : "");
+    allBtn.type = "button";
+    allBtn.textContent = "Todos";
+    allBtn.addEventListener("click", () => {
+      activeSection = "all";
+      buildTabs();
+      renderMenu();
+      const menuRoot = $("#menuRoot");
+      window.scrollTo({ top: menuRoot.getBoundingClientRect().top + window.scrollY - 120, behavior:"smooth" });
+    });
+    root.appendChild(allBtn);
+  
+    // Tabs por categoría
     SECTIONS.forEach(s => {
       const b = document.createElement("button");
       b.className = "tab" + (s.id===activeSection ? " active" : "");
@@ -1387,14 +1397,13 @@
         activeSection = s.id;
         buildTabs();
         renderMenu();
-        // scroll suave al inicio del bloque
         const menuRoot = $("#menuRoot");
         window.scrollTo({ top: menuRoot.getBoundingClientRect().top + window.scrollY - 120, behavior:"smooth" });
       });
       root.appendChild(b);
     });
   }
-
+  
   function productCardHTML(p){
     return `
       <article class="p-card product-card" data-section="${escapeHtml(p.section)}" data-name="${escapeHtml((p.name+" "+(p.desc||"")).toLowerCase())}">
