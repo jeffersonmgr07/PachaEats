@@ -1479,39 +1479,7 @@
     `;
   }
 
-  function renderMenu(){
-    const root = $("#menuRoot");
-    const q = ($("#q").value || "").trim().toLowerCase();
-
-    // Filtra por sección activa + búsqueda
-    const list = menu.filter(p => p.section === activeSection)
-      .filter(p => {
-        if(!q) return true;
-        return (p.name + " " + (p.desc||"")).toLowerCase().includes(q);
-      });
-
-    const secName = SECTIONS.find(s => s.id===activeSection)?.name || "Carta";
-    root.innerHTML = `
-      <div class="block-title">
-        <h3>${escapeHtml(secName)}</h3>
-        <small>${list.length} item(s)</small>
-      </div>
-      <div class="grid">${list.map(productCardHTML).join("") || `
-        <div style="grid-column:1/-1; background:rgba(255,255,255,.88); border:1px dashed rgba(0,0,0,.15); border-radius:18px; padding:14px; color:#6b7280;">
-          No se encontraron productos con ese nombre en <b>${escapeHtml(secName)}</b>.
-        </div>
-      `}</div>
-    `;
-
-    root.querySelectorAll("[data-open-custom]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-open-custom");
-        const p = menu.find(x => x.id === id);
-        if(!p) return;
-        openCustomize(p);
-      });
-    });
-  }
+  
 
   $("#q").addEventListener("input", renderMenu);
 
@@ -1772,12 +1740,6 @@
 
     $("#cartTotalText").textContent = money(cartTotal());
   }
-
-  // ================== INIT ==================
-  buildTabs();
-  renderMenu();
-  renderCartBadge();
-  $("#year").textContent = String(new Date().getFullYear());
 </script>
 
 </body>
