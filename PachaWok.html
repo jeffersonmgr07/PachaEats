@@ -1466,20 +1466,31 @@
   $("#year").textContent = String(new Date().getFullYear());
 
   function productCardHTML(p){
+    // 🔥 genera ruta automática desde el nombre del producto
+    const imgPath = `img/productos/pacha-wok/${p.name}.jpg`;
+  
     return `
-      <article class="p-card product-card" data-section="${escapeHtml(p.section)}" data-name="${escapeHtml((p.name+" "+(p.desc||"")).toLowerCase())}">
-        <div class="p-imgbox"><div class="ph">Pacha Wok</div></div>
+      <article class="p-card product-card">
+        <div class="p-imgbox">
+          <img 
+            src="${imgPath}" 
+            alt="${escapeHtml(p.name)}"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=ph>Pacha Wok</div>'"
+          >
+        </div>
+  
         <p class="p-name">${escapeHtml(p.name)}</p>
         <p class="p-desc">${escapeHtml(p.desc || "")}</p>
         <div class="p-price">${money(p.price)}</div>
+  
         <div class="p-actions">
-          <button class="p-add" type="button" data-open-custom="${escapeHtml(p.id)}">Personalizar</button>
+          <button class="p-add" type="button" data-open-custom="${p.id}">
+            Personalizar
+          </button>
         </div>
       </article>
     `;
   }
-
-  
 
   $("#q").addEventListener("input", renderMenu);
 
