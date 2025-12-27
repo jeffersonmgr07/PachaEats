@@ -240,9 +240,9 @@
     /* ===== Tabs de secciones ===== */
     .tabs{
       margin-top: 12px;
-      position: static;
-      top: 74px; /* debajo del header */
-      z-index: 20;
+      position: static; /* ya no flota */
+      top: auto;
+      z-index: auto;
     }
     .tabs-inner{
       background: rgba(245,235,220,.92);
@@ -392,16 +392,22 @@
       padding: 18px;
     }
     #customModal.show { display: flex; }
-    .custom-sheet{
+        .custom-sheet{
       max-width: 640px;
       width: min(640px, 100%);
+      max-height: calc(100vh - 36px); /* ✅ evita que se salga */
       background:#fff;
       border-radius: 22px;
       overflow:hidden;
       box-shadow: 0 28px 80px rgba(0,0,0,.35);
       border:1px solid rgba(0,0,0,.10);
+      display:flex;
+      flex-direction:column;
     }
-    .custom-head{
+        .custom-head{
+      position: sticky; /* ✅ siempre visible */
+      top: 0;
+      z-index: 5;
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
@@ -422,11 +428,14 @@
       font-weight:950;
       flex:0 0 auto;
     }
-    .custom-body{
+        .custom-body{
       padding:14px;
       display:flex;
       flex-direction:column;
       gap:14px;
+      overflow-y:auto; /* ✅ scroll interno */
+      -webkit-overflow-scrolling: touch;
+      flex: 1 1 auto;
     }
     .opt-card{
       border:1px solid rgba(0,0,0,.08);
@@ -468,7 +477,15 @@
       cursor:pointer;
       box-shadow: 0 16px 30px rgba(226,31,12,.20);
     }
-    .req-note{
+        .custom-footer{
+      position: sticky;
+      bottom: 0;
+      z-index: 4;
+      background: linear-gradient(180deg, rgba(255,255,255,.85), #fff 40%);
+      border-top: 1px solid rgba(0,0,0,.10);
+    }
+
+.req-note{
       font-size: 12px;
       color:#6b7280;
       margin-top:-6px;
@@ -575,7 +592,7 @@
 
       .rest-logo{ width: 74px; height: 74px; border-radius: 18px; }
       .rest-copy h1{ font-size: 19px; }
-      .tabs{ top: 62px; }
+      .tabs{ top: auto; }
       .opt-grid{ grid-template-columns: 1fr; }
       .footer-inner{ grid-template-columns: 1fr; gap:0; }
       .footer-inner > div{ border-bottom: 1px solid rgba(255, 255, 255, 0.18); padding: 10px 0; }
@@ -742,7 +759,7 @@
 
       <div id="customGroups"></div>
 
-      <div class="opt-card">
+      <div class="opt-card custom-footer">
         <div class="row">
           <div>
             <div style="font-size:12px; color:#6b7280;">Total</div>
@@ -1368,102 +1385,7 @@
   }
 
 // ================== UI: TABS + MENU RENDER ==================
-  let activeSection = "all"; // ✅ al iniciar: TODO
-  
-  function buildTabs(){
-    const root = $("#tabs");
-    root.innerHTML = "";
-  
-    // Tab "Todos"
-    const allBtn = document.createElement("button");
-    allBtn.className = "tab" + (activeSection === "all" ? " active" : "");
-    allBtn.type = "button";
-    allBtn.textContent = "Todos";
-    allBtn.addEventListener("click", () => {
-      activeSection = "all";
-      buildTabs();
-      renderMenu();
-      const menuRoot = $("#menuRoot");
-      window.scrollTo({ top: menuRoot.getBoundingClientRect().top + window.scrollY - 120, behavior:"smooth" });
-    });
-    root.appendChild(allBtn);
-  
-    // Tabs por categoría
-    SECTIONS.forEach(s => {
-      const b = document.createElement("button");
-      b.className = "tab" + (s.id === activeSection ? " active" : "");
-      b.type = "button";
-      b.textContent = s.name;
-      b.addEventListener("click", () => {
-        activeSection = s.id;
-        buildTabs();
-        renderMenu();
-        const menuRoot = $("#menuRoot");
-        window.scrollTo({ top: menuRoot.getBoundingClientRect().top + window.scrollY - 120, behavior:"smooth" });
-      });
-      root.appendChild(b);
-    });
-  }
-  
-  function renderMenu(){
-    const root = $("#menuRoot");
-    const q = ($("#q").value || "").trim().toLowerCase();
-  
-    // ✅ Si por algún motivo activeSection está mal, lo corregimos
-    if (activeSection !== "all" && !SECTIONS.some(s => s.id === activeSection)) {
-      activeSection = "all";
-    }
-  
-    const secName =
-      activeSection === "all"
-        ? "Todos los productos"
-        : (SECTIONS.find(s => s.id === activeSection)?.name || "Carta");
-  
-    // ✅ Lista base (TODOS)
-    let list = Array.isArray(menu) ? menu.slice() : [];
-  
-    // ✅ Filtra SOLO si eliges una categoría
-    if (activeSection !== "all") {
-      list = list.filter(p => p.section === activeSection);
-    }
-  
-    // ✅ Búsqueda
-    if (q) {
-      list = list.filter(p => (p.name + " " + (p.desc || "")).toLowerCase().includes(q));
-    }
-  
-    root.innerHTML = `
-      <div class="block-title">
-        <h3>${escapeHtml(secName)}</h3>
-        <small>${list.length} item(s)</small>
-      </div>
-      <div class="grid">
-        ${
-          list.length
-            ? list.map(productCardHTML).join("")
-            : `<div style="grid-column:1/-1; background:rgba(255,255,255,.88); border:1px dashed rgba(0,0,0,.15); border-radius:18px; padding:14px; color:#6b7280;">
-                No se encontraron productos con ese nombre.
-              </div>`
-        }
-      </div>
-    `;
-  
-    root.querySelectorAll("[data-open-custom]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-open-custom");
-        const p = menu.find(x => x.id === id);
-        if(!p) return;
-        openCustomize(p);
-      });
-    });
-  }
-  
-  // ✅ INIT (IMPORTANTE)
-  activeSection = "all";
-  buildTabs();
-  renderMenu();
-  renderCartBadge();
-  $("#year").textContent = String(new Date().getFullYear());
+  let activeSection = "all"; // ✅ al iniciar: mostrar TODO
 
   function productCardHTML(p){
     // 🔥 genera ruta automática desde el nombre del producto
@@ -1491,10 +1413,104 @@
       </article>
     `;
   }
+  
+  function buildTabs(){
+    const root = $("#tabs");
+    root.innerHTML = "";
+
+    // Tab "Todos"
+    const allBtn = document.createElement("button");
+    allBtn.className = "tab" + (activeSection === "all" ? " active" : "");
+    allBtn.type = "button";
+    allBtn.textContent = "Todos";
+    allBtn.addEventListener("click", () => {
+      activeSection = "all";
+      buildTabs();
+      renderMenu();
+      const menuRoot = $("#menuRoot");
+      window.scrollTo({ top: menuRoot.getBoundingClientRect().top + window.scrollY - 120, behavior:"smooth" });
+    });
+    root.appendChild(allBtn);
+
+    // Tabs por categoría
+    SECTIONS.forEach(s => {
+      const b = document.createElement("button");
+      b.className = "tab" + (s.id === activeSection ? " active" : "");
+      b.type = "button";
+      b.textContent = s.name;
+      b.addEventListener("click", () => {
+        activeSection = s.id;
+        buildTabs();
+        renderMenu();
+        const menuRoot = $("#menuRoot");
+        window.scrollTo({ top: menuRoot.getBoundingClientRect().top + window.scrollY - 120, behavior:"smooth" });
+      });
+      root.appendChild(b);
+    });
+  }
+
+  function renderMenu(){
+    const root = $("#menuRoot");
+    const q = ($("#q").value || "").trim().toLowerCase();
+
+    // Si por algún motivo activeSection está mal, lo corregimos
+    if (activeSection !== "all" && !SECTIONS.some(s => s.id === activeSection)) {
+      activeSection = "all";
+    }
+
+    const secName =
+      activeSection === "all"
+        ? "Todos los productos"
+        : (SECTIONS.find(s => s.id === activeSection)?.name || "Carta");
+
+    // Lista base (TODOS)
+    let list = Array.isArray(menu) ? menu.slice() : [];
+
+    // Filtra SOLO si eliges una categoría
+    if (activeSection !== "all") {
+      list = list.filter(p => p.section === activeSection);
+    }
+
+    // Búsqueda
+    if (q) {
+      list = list.filter(p => (p.name + " " + (p.desc || "")).toLowerCase().includes(q));
+    }
+
+    root.innerHTML = `
+      <div class="block-title">
+        <h3>${escapeHtml(secName)}</h3>
+        <small>${list.length} item(s)</small>
+      </div>
+      <div class="grid">
+        ${
+          list.length
+            ? list.map(productCardHTML).join("")
+            : `<div style="grid-column:1/-1; background:rgba(255,255,255,.88); border:1px dashed rgba(0,0,0,.15); border-radius:18px; padding:14px; color:#6b7280;">
+                No se encontraron productos con ese nombre.
+              </div>`
+        }
+      </div>
+    `;
+
+    root.querySelectorAll("[data-open-custom]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-open-custom");
+        const p = menu.find(x => x.id === id);
+        if(!p) return;
+        openCustomize(p);
+      });
+    });
+  }
 
   $("#q").addEventListener("input", renderMenu);
 
-  // ================== MODAL PERSONALIZAR (DINÁMICO) ==================
+  // INIT
+  buildTabs();
+  renderMenu();
+  renderCartBadge();
+  $("#year").textContent = String(new Date().getFullYear());
+
+// ================== MODAL PERSONALIZAR (DINÁMICO) ==================
   let customProduct = null;
   let customQty = 1;
   let selections = {}; // groupId -> (radioId|string) or (array for check)
