@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -195,15 +196,15 @@
       overflow:hidden;
     }
     .rest-hero-inner{
-      padding: 16px;
+      padding: 10px 12px;
       display:flex;
-      gap:14px;
+      gap:10px;
       align-items:center;
       flex-wrap:wrap;
     }
     .rest-logo{
-      width: 150px;
-      height: 150px;
+      width: 195px;
+      height: 195px;
       border-radius: 0;
       background: transparent;
       border: none;
@@ -215,8 +216,8 @@
       flex:0 0 auto;
 
       position: relative;
-      padding-right: 14px;   /* espacio antes del divisor */
-      margin-right: 14px;
+      padding-right: 8px;   /* espacio antes del divisor */
+      margin-right: 8px;
     }
     .rest-logo::after{
       content:"";
@@ -227,7 +228,7 @@
       width: 1px;
       background: rgba(107,114,128,.25); /* gris muy delgado */
     }
-    .rest-logo img{width:150px; height:150px; object-fit:contain;}
+    .rest-logo img{width:195px; height:195px; object-fit:contain;}
     .rest-copy h1{
       margin:0;
       font-size: 22px;
@@ -254,10 +255,10 @@
     }
     .rest-hours{
       position: relative;
-      padding-left: 10px;
-      padding-right: 15px;
-      margin-left: 10px;
-      min-width: 260px;
+      padding-left: 6px;
+      padding-right: 8px;
+      margin:6px 0 0;
+      min-width: 200px;
       display:flex;
       flex-direction: column;
       justify-content: center;
@@ -656,7 +657,7 @@
 
       .rest-logo{ width:auto; height:auto; padding-right:0; margin-right:0; }
       .rest-logo::after{ display:none; }
-      .rest-logo img{ width: 150px; height: 150px; }
+      .rest-logo img{ width: 195px; height: 195px; }
       .rest-copy h1{ font-size: 19px; }
       .tabs{ top: auto; }
       .opt-grid{ grid-template-columns: 1fr; }
@@ -732,11 +733,14 @@
         align-items: center;      /* centra todo */
         text-align: center;
         flex-wrap: wrap;
+        padding: 8px 10px;   /* menos aire arriba/abajo */
+        gap: 6px;            /* logo y textos más pegados */
       }
     
       .rest-logo{
         margin: 0 auto;
       }
+      .rest-logo img{ width: 195px; height: 195px; }
     
       .rest-copy{
         text-align: center;
@@ -753,6 +757,7 @@
         text-align: justify;      /* 👈 lo que pediste */
         font-size: 13.5px;
         line-height: 1.45;
+        margin-top: 4px;     /* menos espacio entre título y texto */
       }
 
 
@@ -760,9 +765,9 @@
         width: 100%;
         margin-left: 0;
         padding-left: 0;
-        margin-top: 10px;
+        margin-top: 6px;
         border-top: 1px solid rgba(107,114,128,.20);
-        padding-top: 10px;
+        padding-top: 6px;
       }
       .rest-hours::before{ display:none; }
       .rest-hours-title{ text-align:center; }
