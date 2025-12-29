@@ -946,6 +946,7 @@
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => Array.from(document.querySelectorAll(s));
   const money = (n) => "S/ " + Number(n||0).toFixed(2);
+  const drinkImg = (filename) => `img/productos/bebidas/${filename}`;
   const escapeHtml = (str) => String(str).replace(/[&<>"']/g, m => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
   }[m]));
@@ -959,15 +960,19 @@
       required:false,
       choices:[
         { id:"none",  label:"Sin bebida", add:0 },
-
-        { id:"inca600", label:"Inca Kola 600 ml.", add:4.00 },
-        { id:"coca600", label:"Coca Cola 600 ml.", add:4.00 },
-        { id:"pepsi500",label:"Pepsi 500 ml.", add:3.00 },
-        { id:"gua500",  label:"Guaraná 500 ml.", add:3.00 },
-
-        { id:"lim900",  label:"Limonada 900 ml.", add:4.90 },
-        { id:"mar900",  label:"Maracuyá 900 ml.", add:5.90 },
-        { id:"chi900",  label:"Chicha morada 900 ml.", add:6.90 }
+    
+        { id:"inca600", label:"Inca Kola 600 ml.", add:4.00, img: drinkImg("Inca Kila 600 ml.jpg") },
+        { id:"coca600", label:"Coca Cola 600 ml.", add:4.00, img: drinkImg("Coca Cola 600 ml.jpg") },
+    
+        // Nota: tu imagen es Pepsi 750 ml (la usamos para Pepsi)
+        { id:"pepsi",   label:"Pepsi 750 ml.", add:3.00, img: drinkImg("Pepsi 750 ml.jpg") },
+    
+        // Nota: tu imagen dice Guarana 450 ml
+        { id:"gua",     label:"Guaraná 450 ml.", add:3.00, img: drinkImg("Guarana 450 ml.jpg") },
+    
+        { id:"lim900",  label:"Limonada 900 ml.", add:4.90, img: drinkImg("Limonada 900 ml.jpg") },
+        { id:"mar900",  label:"Maracuyá 900 ml.", add:5.90, img: drinkImg("Maracuya 900 ml.jpg") },
+        { id:"chi900",  label:"Chicha morada 900 ml.", add:6.90, img: drinkImg("Chicha Morada 900 ml.jpg") }
       ],
       defaultId:"none"
     },
@@ -979,16 +984,15 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pepsi500", label:"Pepsi 500 ml. (seleccionado)", add:0.00 },
-        { id:"inca600",  label:"Inca Kola 600 ml.", add:0.00 },
-        { id:"coca600",  label:"Coca Cola 600 ml.", add:0.00 },
-        { id:"gua500",   label:"Guaraná 500 ml.", add:0.00 },
-
-        { id:"lim900",   label:"Limonada 900 ml.", add:0.00 },
-        { id:"mar900",   label:"Maracuyá 900 ml.", add:0.00 },
-        { id:"chi900",   label:"Chicha morada 900 ml.", add:0.00 }
+        { id:"pepsi",   label:"Pepsi 750 ml. (seleccionado)", add:0.00, img: drinkImg("Pepsi 750 ml.jpg") },
+        { id:"inca600", label:"Inca Kola 600 ml.", add:0.00, img: drinkImg("Inca Kila 600 ml.jpg") },
+        { id:"coca600", label:"Coca Cola 600 ml.", add:0.00, img: drinkImg("Coca Cola 600 ml.jpg") },
+        { id:"gua",     label:"Guaraná 450 ml.", add:0.00, img: drinkImg("Guarana 450 ml.jpg") },
+        { id:"lim900",  label:"Limonada 900 ml.", add:0.00, img: drinkImg("Limonada 900 ml.jpg") },
+        { id:"mar900",  label:"Maracuyá 900 ml.", add:0.00, img: drinkImg("Maracuya 900 ml.jpg") },
+        { id:"chi900",  label:"Chicha morada 900 ml.", add:0.00, img: drinkImg("Chicha Morada 900 ml.jpg") }
       ],
-      defaultId:"pepsi500"
+      defaultId:"pepsi"
     },
 
     sizeCostillas: {
@@ -1686,9 +1690,18 @@
           el.className = "opt";
           el.innerHTML = `
             <input type="radio" name="${escapeHtml(g.id)}" id="${escapeHtml(id)}" ${checked ? "checked" : ""}>
-            <div>
-              <div style="font-weight:950;">${escapeHtml(ch.label)}</div>
-              <small>${ch.add ? ("+"+money(ch.add)) : "+S/ 0.00"}</small>
+            <div style="display:flex; gap:10px; align-items:center;">
+              ${
+                ch.img
+                ? `<img src="${ch.img}" alt="${escapeHtml(ch.label)}"
+                     style="width:44px;height:44px;border-radius:12px;object-fit:cover;border:1px solid rgba(0,0,0,.08);background:#fff;"
+                     onerror="this.style.display='none';">`
+                : ``
+              }
+              <div>
+                <div style="font-weight:950;">${escapeHtml(ch.label)}</div>
+                <small>${ch.add ? ("+"+money(ch.add)) : "+S/ 0.00"}</small>
+              </div>
             </div>
           `;
           el.addEventListener("click", () => {
