@@ -1009,6 +1009,48 @@
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
   }[m]));
 
+  // ================== HORARIO (America/Lima) ==================
+  // Horario: Lunes a Domingo 12:00 - 23:00
+  const STORE_SCHEDULE = {
+    tz: "America/Lima",
+    daily: { open: "12:00", close: "23:00" } // 24h
+  };
+
+  function nowInTZ(tz){
+    // Creamos un Date usando partes de la zona horaria para evitar problemas de timezone del dispositivo
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: tz,
+      year:"numeric", month:"2-digit", day:"2-digit",
+      hour:"2-digit", minute:"2-digit", second:"2-digit",
+      hour12:false
+    }).formatToParts(new Date()).reduce((acc,p)=>{acc[p.type]=p.value; return acc;}, {});
+    return new Date(`${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`);
+  }
+
+  function hhmmToMinutes(hhmm){
+    const [h,m] = String(hhmm).split(":").map(Number);
+    return (h*60) + (m||0);
+  }
+
+  function isStoreOpen(){
+    const d = nowInTZ(STORE_SCHEDULE.tz);
+    const mins = d.getHours()*60 + d.getMinutes();
+    const openM = hhmmToMinutes(STORE_SCHEDULE.daily.open);
+    const closeM = hhmmToMinutes(STORE_SCHEDULE.daily.close);
+    // NO cruza medianoche
+    return mins >= openM && mins < closeM;
+  }
+
+  function applyStoreStatusUI(){
+    const badge = document.getElementById("restStatus");
+    if(!badge) return;
+    const open = isStoreOpen();
+    badge.classList.toggle("open", open);
+    badge.classList.toggle("closed", !open);
+    badge.textContent = open ? "Abierto" : "Cerrado";
+  }
+
+
   // ================== OPCIONES REUTILIZABLES (JIJUNAS) ==================
   const OPT = {
     bebidasStd_opcional: {
@@ -1662,8 +1704,9 @@
   renderCartBadge();
   $("#year").textContent = String(new Date().getFullYear());
 
+  // Estado abierto/cerrado
   applyStoreStatusUI();
-  setInterval(applyStoreStatusUI, 60 * 1000); // refresca cada minuto
+  setInterval(applyStoreStatusUI, 60 * 1000);
 
   // ===== Header auto-hide (muestra al subir) =====
   (function(){
