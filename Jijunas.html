@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -232,11 +231,12 @@
     /* ===== Ubicación + rating (PRO) ===== */
     .rest-meta{
       display:flex;
-      justify-content: center;
+      justify-content: flex-start;;
       align-items:center;
       gap:10px;
       flex-wrap:wrap;
       margin-bottom: 6px;
+      text-align: left;
     }
     .rest-loc{
       display:inline-flex;
@@ -833,6 +833,14 @@
         font-size: 13.5px;
         line-height: 1.45;
         margin-top: 1px;
+      }
+       .rest-meta{
+        justify-content: center;
+        text-align: center;
+      }
+    
+      .rest-rating{
+        justify-content: center;
       }
       .rest-hours{
         width: 100%;
