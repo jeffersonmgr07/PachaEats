@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,9 +11,9 @@
       --text:#111827;
       --muted:#6b7280;
 
-      --brand:#e21f0c;
-      --bg:#f5ebdc;
-      --heroArrow:#d62300;
+      --brand:#e21f0c;      /* header/footer */
+      --bg:#f5ebdc;         /* fondo */
+      --heroArrow:#d62300;  /* botones */
       --shadow: 0 14px 30px rgba(17,24,39,.10);
       --shadow2: 0 10px 22px rgba(17,24,39,.09);
       --shadow3: 0 18px 40px rgba(17,24,39,.14);
@@ -48,11 +49,16 @@
       background: rgba(245,235,220,.88);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    /* ===== Header auto-hide on scroll (muestra al subir) ===== */
+    header{
       transition: transform .22s ease;
       will-change: transform;
     }
-    header.is-hidden{ transform: translateY(-110%); }
-
+    header.is-hidden{
+      transform: translateY(-110%);
+    }
     .header-wrap{padding:4px 0 4px;}
     .header-bar{
       background: var(--brand);
@@ -171,6 +177,16 @@
 
     main{padding: 12px 0 44px;}
 
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin: 16px 0 12px;
+    }
+    .section-head h2{margin:0; font-size: clamp(18px, 2.2vw, 26px); font-weight:950;}
+    .section-head p{margin:0; color:#374151; font-size:14px; max-width:70ch;}
+
     /* ===== Restaurant hero ===== */
     .rest-hero{
       background: rgba(255,255,255,.88);
@@ -201,25 +217,27 @@
       flex:0 0 auto;
 
       position: relative;
-      padding-right: 8px;
+      padding-right: 8px;   /* espacio antes del divisor */
       margin-right: 8px;
     }
     .rest-logo::after{
       content:"";
       position:absolute;
+      top: 1px;
+      bottom: 1px;
       right: 0;
       top: 50%;
-      height: 70%;
-      transform: translateY(-50%);
+      height: 70%;                 /* 👈 CLAVE */
+      transform: translateY(-50%); /* 👈 CLAVE */
       width: 1px;
-      background: rgba(107,114,128,.25);
+      background: rgba(107,114,128,.25); /* gris muy delgado */
     }
     .rest-logo img{width:195px; height:150px; object-fit:contain;}
-
-    .rest-copy{
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+    .rest-copy h1{
+      margin:0;
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: .2px;
     }
     .rest-copy p{
       margin:1px 0 0;
@@ -228,6 +246,16 @@
       line-height: 1.35;
     }
 
+    /* ===== Horario de atención ===== */
+    .rest-hero-inner{
+      align-items: stretch;
+      flex-wrap: nowrap;
+    }
+    .rest-copy{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
     .rest-hours{
       position: relative;
       padding-left: 15px;
@@ -241,10 +269,12 @@
     .rest-hours::before{
       content:"";
       position:absolute;
+      top: 8px;
+      bottom: 8px;
       left: 0;
       top: 50%;
-      height: 150%;
-      transform: translateY(-50%);
+      height: 70%;                 /* 👈 CLAVE */
+      transform: translateY(-50%); /* 👈 CLAVE */
       width: 1px;
       background: rgba(107,114,128,.25);
     }
@@ -259,42 +289,32 @@
       color: #374151;
       line-height: 1.35;
     }
-
-    /* ===== Estado abierto/cerrado ===== */
-    .rest-status{
+    .rest-badges{
+      margin-top: 10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .badge{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      width: fit-content;
-      padding:6px 10px;
+      padding:8px 10px;
       border-radius: 999px;
-      font-weight: 950;
+      background: rgba(226,31,12,.08);
+      border: 1px solid rgba(226,31,12,.18);
+      color:#7a1409;
+      font-weight: 900;
       font-size: 12px;
-      letter-spacing: .2px;
-      margin-bottom: 6px;
-      border: 1px solid rgba(0,0,0,.08);
-      box-shadow: 0 10px 18px rgba(17,24,39,.06);
-    }
-    .rest-status::before{
-      content:"";
-      width:9px;height:9px;
-      border-radius:999px;
-      background: currentColor;
-      box-shadow: 0 0 0 4px rgba(0,0,0,.04);
-    }
-    .rest-status.open{
-      color:#065f46;
-      background: rgba(16,185,129,.12);
-      border-color: rgba(16,185,129,.35);
-    }
-    .rest-status.closed{
-      color:#991b1b;
-      background: rgba(239,68,68,.12);
-      border-color: rgba(239,68,68,.35);
     }
 
-    /* ===== Tabs ===== */
-    .tabs{ margin-top: 12px; position: static; }
+    /* ===== Tabs de secciones ===== */
+    .tabs{
+      margin-top: 12px;
+      position: static; /* ya no flota */
+      top: auto;
+      z-index: auto;
+    }
     .tabs-inner{
       background: rgba(245,235,220,.92);
       backdrop-filter: blur(8px);
@@ -327,7 +347,9 @@
     }
 
     /* ===== Grid productos ===== */
-    .block{ margin-top: 14px; }
+    .block{
+      margin-top: 14px;
+    }
     .block-title{
       margin: 18px 0 10px;
       display:flex;
@@ -335,7 +357,11 @@
       justify-content:space-between;
       gap:10px;
     }
-    .block-title h3{ margin:0; font-size: 18px; font-weight: 950; }
+    .block-title h3{
+      margin:0;
+      font-size: 18px;
+      font-weight: 950;
+    }
     .block-title small{color: var(--muted); font-weight: 800;}
     .grid{
       display:grid;
@@ -343,6 +369,7 @@
       gap:14px;
     }
 
+    /* ===== Tarjeta producto (reuse p-card) ===== */
     .p-card{
       border-radius: 14px;
       background:#fff;
@@ -362,11 +389,6 @@
       place-items:center;
       overflow:hidden;
       border:1px solid rgba(0,0,0,.06);
-    }
-    .p-imgbox img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
     }
     .p-imgbox .ph{
       width:100%;
@@ -441,11 +463,10 @@
       padding: 18px;
     }
     #customModal.show { display: flex; }
-
-    .custom-sheet{
+        .custom-sheet{
       max-width: 640px;
       width: min(640px, 100%);
-      max-height: calc(100vh - 36px);
+      max-height: calc(100vh - 36px); /* ✅ evita que se salga */
       background:#fff;
       border-radius: 22px;
       overflow:hidden;
@@ -454,8 +475,8 @@
       display:flex;
       flex-direction:column;
     }
-    .custom-head{
-      position: sticky;
+        .custom-head{
+      position: sticky; /* ✅ siempre visible */
       top: 0;
       z-index: 5;
       display:flex;
@@ -466,8 +487,8 @@
       border-bottom: 1px solid rgba(0,0,0,.10);
       background: var(--brand);
     }
-    .custom-title{margin:0; font-size:20px; font-weight:950; color:#fff; line-height:1.1;}
-    .custom-sub{margin:6px 0 0; color: rgba(255,255,255,.92); font-size:13px; line-height:1.35;}
+    .custom-title{margin:0; font-size:18px; font-weight:950; color:#fff;}
+    .custom-sub{margin:6px 0 0; color: rgba(255,255,255,.90); font-size:13px; line-height:1.3;}
     .xbtn{
       border:none;
       background:#f3f4f6;
@@ -478,12 +499,12 @@
       font-weight:950;
       flex:0 0 auto;
     }
-    .custom-body{
+        .custom-body{
       padding:14px;
       display:flex;
       flex-direction:column;
       gap:14px;
-      overflow-y:auto;
+      overflow-y:auto; /* ✅ scroll interno */
       -webkit-overflow-scrolling: touch;
       flex: 1 1 auto;
     }
@@ -496,8 +517,6 @@
     }
     .opt-card h4{margin:0 0 10px; font-size:14px; font-weight:950;}
     .opt-grid{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
-
-    /* ===== PRO: opciones seleccionadas tipo card ===== */
     .opt{
       border:1px solid rgba(0,0,0,.08);
       border-radius:16px;
@@ -508,19 +527,10 @@
       cursor:pointer;
       user-select:none;
       background:#fff;
-      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
-      position: relative;
     }
-    .opt.is-checked{
-      border-color: var(--brand);
-      background: rgba(226,31,12,.05);
-      box-shadow: 0 10px 18px rgba(226,31,12,.15);
-    }
-    .opt:active{ transform: scale(.98); }
     .opt:hover{background:#fafafa}
     .opt input{margin-top:2px}
     .opt small{color:#6b7280; display:block; margin-top:3px}
-
     .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
     .qty-box{display:flex; align-items:center; gap:8px;}
     .qty-btn{
@@ -534,20 +544,19 @@
       background: var(--brand);
       color:#fff;
       font-weight:950;
-      width: 100%;
-      font-size: 15px;
-      padding: 14px 16px;
+      padding:12px 14px;
       cursor:pointer;
       box-shadow: 0 16px 30px rgba(226,31,12,.20);
     }
-    .custom-footer{
+        .custom-footer{
       position: sticky;
       bottom: 0;
       z-index: 4;
       background: linear-gradient(180deg, rgba(255,255,255,.85), #fff 40%);
       border-top: 1px solid rgba(0,0,0,.10);
     }
-    .req-note{
+
+.req-note{
       font-size: 12px;
       color:#6b7280;
       margin-top:-6px;
@@ -565,7 +574,7 @@
       border:1px solid rgba(0,0,0,.10);
     }
 
-    /* ================= FOOTER ================= */
+    /* ================= FOOTER (igual estilo) ================= */
     footer{
       background: var(--brand);
       color:#fff;
@@ -649,17 +658,21 @@
         gap: 6px;
       }
       .cart-pill .total-badge{ min-width: 70px; padding: 4px 6px; font-size: 11px; }
+
       .info-block{ display:none !important; }
 
       .rest-logo{ width:auto; height:auto; padding-right:0; margin-right:0; }
       .rest-logo::after{ display:none; }
+      img{ width: 195px; height: 195px; }
+      .rest-copy h1{ font-size: 19px; }
+      .tabs{ top: auto; }
       .opt-grid{ grid-template-columns: 1fr; }
       .footer-inner{ grid-template-columns: 1fr; gap:0; }
       .footer-inner > div{ border-bottom: 1px solid rgba(255, 255, 255, 0.18); padding: 10px 0; }
       .footer-inner > div:last-child{ border-bottom: none; }
     }
 
-    /* ===== WhatsApp flotante ===== */
+    /* ===== WhatsApp flotante (igual) ===== */
     .wa-float{
       position: fixed;
       right: 16px;
@@ -709,7 +722,6 @@
       border-color: rgba(226,31,12,.35);
       animation-delay: .55s;
     }
-    .p-imgbox{ height: 150px; }
     @keyframes waRipple{
       0%   { opacity: 0; transform: translate(-50%, -50%) scale(.70); }
       15%  { opacity: 1; }
@@ -719,26 +731,42 @@
       .wa-float::before,
       .wa-float::after{ animation: none; opacity: 0; }
     }
-
-    /* ===== REST HERO – MOBILE FIX ===== */
+    /* ================= REST HERO – MOBILE FIX ================= */
     @media (max-width: 560px){
+    
       .rest-hero-inner{
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column;   /* logo arriba */
+        align-items: center;      /* centra todo */
         text-align: center;
         flex-wrap: wrap;
-        padding: 10px 12px;
-        gap: 6px;
+        padding: 1px 101x;   /* menos aire arriba/abajo */
+        gap: 6px;            /* logo y textos más pegados */
       }
-      .rest-logo{ margin: 0 auto; }
-      .rest-logo img{ width: 195px; height: 150px; }
-      .rest-copy{ text-align: center; max-width: 100%; }
+    
+      .rest-logo{
+        margin: 0 auto;
+      }
+      img{ width: 195px; height: 150px; }
+    
+      .rest-copy{
+        text-align: center;
+        max-width: 100%;
+      }
+    
+      .rest-copy h1{
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 1px;
+      }
+    
       .rest-copy p{
-        text-align: justify;
+        text-align: justify;      /* 👈 lo que pediste */
         font-size: 13.5px;
         line-height: 1.45;
-        margin-top: 1px;
+        margin-top: 1px;     /* menos espacio entre título y texto */
       }
+
+
       .rest-hours{
         width: 100%;
         margin-left: 0;
@@ -750,7 +778,6 @@
       .rest-hours::before{ display:none; }
       .rest-hours-title{ text-align:center; }
       .rest-hours-time{ text-align:center; }
-      #restStatus{ margin-left:auto; margin-right:auto; }
     }
   </style>
 </head>
@@ -813,19 +840,16 @@
 <main>
   <div class="container">
 
-    <!-- ===== Encabezado restaurante ===== -->
+    <!-- ===== Encabezado restaurante (reemplaza "Productos") ===== -->
     <section class="rest-hero" aria-label="Pacha Wok">
       <div class="rest-hero-inner">
         <div class="rest-logo" aria-hidden="true">
           <img src="img/logos/restaurantes/Pacha Wok v2.png" alt="Pacha Wok">
         </div>
-
         <div class="rest-copy" style="min-width:240px; flex:1;">
-          <p><b>El sabor oriental del Valle</b>, con ese toque chifa peruano que enamora: wok al fuego, sillao, tamarindo y combinaciones clásicas (¡chaufa, aeropuerto, tallarín!) hechas para compartir.</p>
+         <p><b>El sabor oriental del Valle</b>, con ese toque chifa peruano que enamora: wok al fuego, sillao, tamarindo y combinaciones clásicas (¡chaufa, aeropuerto, tallarín!) hechas para compartir.</p>
         </div>
-
         <div class="rest-hours" aria-label="Horario de atención">
-          <div class="rest-status" id="restStatus" aria-live="polite">—</div>
           <div class="rest-hours-title">Horario de atención</div>
           <div class="rest-hours-time">De Lunes a Domingo de 12:00 p.m. a 11:00 p.m.</div>
         </div>
@@ -873,7 +897,7 @@
           </div>
         </div>
 
-        <div style="margin-top:12px; display:flex; justify-content:stretch;">
+        <div style="margin-top:12px; display:flex; justify-content:flex-end;">
           <button class="add-btn" id="addFromCustom" type="button">Agregar al carrito</button>
         </div>
       </div>
@@ -995,133 +1019,82 @@
 
 <script>
   // ================== HELPERS ==================
-  const CART_KEY = "pacha_cart_v_pachawok_likejijunas_1";
+  const CART_KEY = "pacha_cart_v_wok_1";
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => Array.from(document.querySelectorAll(s));
   const money = (n) => "S/ " + Number(n||0).toFixed(2);
-  const drinkImg = (filename) => `img/productos/bebidas/${filename}`;
-  const extraImg = (filename) => `img/productos/extras/${filename}`;
   const escapeHtml = (str) => String(str).replace(/[&<>"']/g, m => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
   }[m]));
 
-  // ================== HORARIO (America/Lima) ==================
-  // Horario: Lunes a Domingo 12:00 - 23:00
-  const STORE_SCHEDULE = {
-    tz: "America/Lima",
-    daily: { open: "12:00", close: "23:00" } // 24h
-  };
-
-  function nowInTZ(tz){
-    const parts = new Intl.DateTimeFormat("en-US", {
-      timeZone: tz,
-      year:"numeric", month:"2-digit", day:"2-digit",
-      hour:"2-digit", minute:"2-digit", second:"2-digit",
-      hour12:false
-    }).formatToParts(new Date()).reduce((acc,p)=>{acc[p.type]=p.value; return acc;}, {});
-    return new Date(`${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`);
-  }
-
-  function hhmmToMinutes(hhmm){
-    const [h,m] = String(hhmm).split(":").map(Number);
-    return (h*60) + (m||0);
-  }
-
-  function isStoreOpen(){
-    const d = nowInTZ(STORE_SCHEDULE.tz);
-    const mins = d.getHours()*60 + d.getMinutes();
-    const openM = hhmmToMinutes(STORE_SCHEDULE.daily.open);
-    const closeM = hhmmToMinutes(STORE_SCHEDULE.daily.close);
-    return mins >= openM && mins < closeM;
-  }
-
-  function applyStoreStatusUI(){
-    const badge = document.getElementById("restStatus");
-    if(!badge) return;
-    const open = isStoreOpen();
-    badge.classList.toggle("open", open);
-    badge.classList.toggle("closed", !open);
-    badge.textContent = open ? "Abierto" : "Cerrado";
-  }
-
-  // ================== OPCIONES (BEBIDAS = IGUAL QUE JIJUNAS) ==================
+  // ================== OPCIONES REUTILIZABLES ==================
   const OPT = {
-    // Bebidas IGUAL que Jijuna's (con imágenes y precios)
-    bebidasStd_opcional: {
-      id:"bebida",
-      title:"¿Alguna bebida personal?",
-      type:"radio",
-      required:false,
-      choices:[
-        { id:"none",  label:"Sin bebida", add:0 },
-        { id:"inca600", label:"Inca Kola 600 ml.", add:4.00, img: drinkImg("Inca Kila 600 ml.jpg") },
-        { id:"coca600", label:"Coca Cola 600 ml.", add:4.00, img: drinkImg("Coca Cola 600 ml.jpg") },
-        { id:"pepsi",   label:"Pepsi 750 ml.", add:3.00, img: drinkImg("Pepsi 750 ml.jpg") },
-        { id:"gua",     label:"Guaraná 450 ml.", add:3.00, img: drinkImg("Guarana 450 ml.jpg") },
-        { id:"lim900",  label:"Limonada 900 ml.", add:4.90, img: drinkImg("Limonada 900 ml.jpg") },
-        { id:"mar900",  label:"Maracuyá 900 ml.", add:5.90, img: drinkImg("Maracuya 900 ml.jpg") },
-        { id:"chi900",  label:"Chicha morada 900 ml.", add:6.90, img: drinkImg("Chicha Morada 900 ml.jpg") }
-      ],
-      defaultId:"none"
-    },
-
-    // Para combos con bebida incluida (gratis) – igual Jijuna's
-    bebidasIncluidas_gratis: {
-      id:"bebida_incluida",
-      title:"Bebida incluida (gratis)",
-      type:"radio",
-      required:true,
-      choices:[
-        { id:"pepsi",   label:"Pepsi 750 ml. (seleccionado)", add:0.00, img: drinkImg("Pepsi 750 ml.jpg") },
-        { id:"inca600", label:"Inca Kola 600 ml.", add:0.00, img: drinkImg("Inca Kila 600 ml.jpg") },
-        { id:"coca600", label:"Coca Cola 600 ml.", add:0.00, img: drinkImg("Coca Cola 600 ml.jpg") },
-        { id:"gua",     label:"Guaraná 450 ml.", add:0.00, img: drinkImg("Guarana 450 ml.jpg") },
-        { id:"lim900",  label:"Limonada 900 ml.", add:0.00, img: drinkImg("Limonada 900 ml.jpg") },
-        { id:"mar900",  label:"Maracuyá 900 ml.", add:0.00, img: drinkImg("Maracuya 900 ml.jpg") },
-        { id:"chi900",  label:"Chicha morada 900 ml.", add:0.00, img: drinkImg("Chicha Morada 900 ml.jpg") }
-      ],
-      defaultId:"pepsi"
-    },
-
-    // Wantanes (reemplaza papas extra)
-    wantanesExtra: {
-      id:"wantanes_extra",
-      title:"Wantanes fritos",
-      type:"radio",
-      required:false,
-      choices:[
-        { id:"none", label:"Sin wantanes", add:0 },
-        { id:"3", label:"3 und", add:5.00,  img: extraImg("Wantanes 3 und.jpg") },
-        { id:"6", label:"6 und", add:9.00,  img: extraImg("Wantanes 6 und.jpg") },
-        { id:"12",label:"12 und",add:16.00, img: extraImg("Wantanes 12 und.jpg") }
-      ],
-      defaultId:"none"
-    },
-
-    wantanesIncluidos_3: {
-      id:"wantanes_incl",
-      title:"Wantanes fritos (incluido)",
-      type:"radio",
-      required:true,
-      choices:[
-        { id:"3", label:"3 und (seleccionado)", add:0.00, img: extraImg("Wantanes 3 und.jpg") },
-        { id:"6", label:"6 und", add:9.00,  img: extraImg("Wantanes 6 und.jpg") },
-        { id:"12",label:"12 und",add:16.00, img: extraImg("Wantanes 12 und.jpg") }
-      ],
-      defaultId:"3"
-    },
-
-    // Opciones Pacha Wok (como en tu archivo)
     salsasOrientales: {
       id:"salsas",
       title:"Salsas orientales",
       type:"check",
       required:false,
       choices:[
-        { id:"tam",  label:"Salsa tamarindo", add:0 },
+        { id:"tam", label:"Salsa tamarindo", add:0 },
         { id:"soya", label:"Salsa de soya", add:0 },
       ],
       defaultIds:["tam"]
+    },
+
+    bebidaPersonal: {
+      id:"bebida",
+      title:"¿Alguna bebida personal?",
+      type:"radio",
+      required:false,
+      choices:[
+        { id:"none", label:"Sin bebida", add:0 },
+        { id:"inca450", label:"Inca Kola 450 ml.", add:3.50 },
+        { id:"coca450", label:"Coca Cola 450 ml.", add:3.50 },
+        { id:"pepsi500", label:"Pepsi 500 ml.", add:3.00 },
+        { id:"gua450", label:"Guaraná 450 ml.", add:3.00 }
+      ],
+      defaultId:"none"
+    },
+
+    bebidaPersonal_comboClasico: {
+      id:"bebida",
+      title:"¿Alguna bebida personal?",
+      type:"radio",
+      required:false,
+      choices:[
+        { id:"pepsi500", label:"Pepsi 500 ml. (seleccionado)", add:0.00 },
+        { id:"inca450", label:"Inca Kola 450 ml.", add:3.50 },
+        { id:"coca450", label:"Coca Cola 450 ml.", add:3.50 },
+        { id:"gua450", label:"Guaraná 450 ml.", add:3.00 }
+      ],
+      defaultId:"pepsi500"
+    },
+
+    wantanSide: {
+      id:"wantan_side",
+      title:"Wantan frito",
+      type:"radio",
+      required:false,
+      choices:[
+        { id:"none", label:"Sin wantanes", add:0 },
+        { id:"3", label:"3 und", add:5.00 },
+        { id:"6", label:"6 und", add:9.00 },
+        { id:"12", label:"12 und", add:16.00 }
+      ],
+      defaultId:"none"
+    },
+
+    wantanSide_comboClasico: {
+      id:"wantan_side",
+      title:"Wantan frito",
+      type:"radio",
+      required:true,
+      choices:[
+        { id:"3", label:"3 und (seleccionado)", add:0.00 },
+        { id:"6", label:"6 und", add:9.00 },
+        { id:"12", label:"12 und", add:16.00 }
+      ],
+      defaultId:"3"
     },
 
     tipoArrozChaufa: {
@@ -1130,8 +1103,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pollo",    label:"Chaufa de Pollo", add:0 },
-        { id:"chancho",  label:"Chaufa de chancho", add:2.00 },
+        { id:"pollo", label:"Chaufa de Pollo", add:0 },
+        { id:"chancho", label:"Chaufa de chancho", add:2.00 },
         { id:"especial", label:"Chaufa especial", add:15.00 }
       ],
       defaultId:"pollo"
@@ -1143,8 +1116,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pollo",    label:"Chaufa de Pollo", add:0 },
-        { id:"chancho",  label:"Chaufa de chancho", add:2.00 },
+        { id:"pollo", label:"Chaufa de Pollo", add:0 },
+        { id:"chancho", label:"Chaufa de chancho", add:2.00 },
         { id:"especial", label:"Chaufa especial", add:5.00 }
       ],
       defaultId:"pollo"
@@ -1168,8 +1141,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pollo",    label:"Aeropuerto de pollo", add:0 },
-        { id:"chancho",  label:"Aeropuerto de chancho", add:3.00 },
+        { id:"pollo", label:"Aeropuerto de pollo", add:0 },
+        { id:"chancho", label:"Aeropuerto de chancho", add:3.00 },
         { id:"especial", label:"Aeropuerto especial", add:12.00 }
       ],
       defaultId:"pollo"
@@ -1181,8 +1154,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pollo",    label:"Pollo", add:0 },
-        { id:"chancho",  label:"Chancho", add:3.00 },
+        { id:"pollo", label:"Pollo", add:0 },
+        { id:"chancho", label:"Chancho", add:3.00 },
         { id:"especial", label:"Especial", add:15.00 }
       ],
       defaultId:"pollo"
@@ -1194,8 +1167,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pollo",    label:"Combinado de pollo", add:0 },
-        { id:"chancho",  label:"Combinado de chancho", add:3.00 },
+        { id:"pollo", label:"Combinado de pollo", add:0 },
+        { id:"chancho", label:"Combinado de chancho", add:3.00 },
         { id:"especial", label:"Combinado especial", add:13.00 }
       ],
       defaultId:"pollo"
@@ -1207,8 +1180,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"pollo",    label:"Pollo", add:0 },
-        { id:"chancho",  label:"Chancho", add:5.00 },
+        { id:"pollo", label:"Pollo", add:0 },
+        { id:"chancho", label:"Chancho", add:5.00 },
         { id:"especial", label:"Especial", add:7.00 }
       ],
       defaultId:"pollo"
@@ -1220,7 +1193,7 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"6",  label:"6 und", add:0 },
+        { id:"6", label:"6 und", add:0 },
         { id:"12", label:"12 und", add:7.00 }
       ],
       defaultId:"6"
@@ -1232,8 +1205,8 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"3",  label:"3 und", add:0 },
-        { id:"6",  label:"6 und", add:5.00 },
+        { id:"3", label:"3 und", add:0 },
+        { id:"6", label:"6 und", add:5.00 },
         { id:"12", label:"12 und", add:14.00 }
       ],
       defaultId:"3"
@@ -1245,9 +1218,9 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"simple",   label:"Chaufa simple", add:0 },
-        { id:"pollo",    label:"Chaufa de pollo", add:3.00 },
-        { id:"chancho",  label:"Chaufa de chancho", add:4.00 },
+        { id:"simple", label:"Chaufa simple", add:0 },
+        { id:"pollo", label:"Chaufa de pollo", add:3.00 },
+        { id:"chancho", label:"Chaufa de chancho", add:4.00 },
         { id:"especial", label:"Chaufa especial", add:5.00 }
       ],
       defaultId:"simple"
@@ -1259,9 +1232,9 @@
       type:"radio",
       required:true,
       choices:[
-        { id:"inca15",  label:"Inka Cola 1.5 Lt", add:8.50 },
+        { id:"inca15", label:"Inka Cola 1.5 Lt", add:8.50 },
         { id:"pepsi15", label:"Pepsi 1.5 Lt", add:6.50 },
-        { id:"coca15",  label:"Coca cola 1.5 Lt", add:8.00 }
+        { id:"coca15", label:"Coca cola 1.5 Lt", add:8.00 }
       ],
       defaultId:"pepsi15"
     }
@@ -1269,14 +1242,15 @@
 
   // ================== DATA MENU ==================
   const SECTIONS = [
-    { id:"combos",     name:"Combos" },
-    { id:"dimsums",    name:"Dim Sums" },
-    { id:"sopas",      name:"Sopas" },
-    { id:"clasicos",   name:"Clásicos" },
-    { id:"especiales", name:"Especiales" },
-    { id:"banquetes",  name:"Banquetes" }
+    { id:"combos",    name:"Combos" },
+    { id:"dimsums",   name:"Dim Sums" },
+    { id:"sopas",     name:"Sopas" },
+    { id:"clasicos",  name:"Clásicos" },
+    { id:"especiales",name:"Especiales" },
+    { id:"banquetes", name:"Banquetes" }
   ];
 
+  // Nota: imágenes placeholder (puedes cambiarlas a rutas reales si tienes)
   const menu = [
     // ===== Combos =====
     {
@@ -1287,8 +1261,8 @@
       price:14.90,
       groups:[
         OPT.tipoArrozChaufa_combo,
-        OPT.bebidasIncluidas_gratis,
-        OPT.wantanesIncluidos_3
+        OPT.bebidaPersonal_comboClasico,
+        OPT.wantanSide_comboClasico
       ]
     },
     {
@@ -1297,7 +1271,9 @@
       name:"Combo para 2",
       desc:"01 Arroz chaufa grande + 01 porción de Chi Jau Kay + 01 porción de Tipakay + 04 wantanes fritos",
       price:44.90,
-      groups:[ OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[
+        OPT.bebidaPersonal
+      ]
     },
 
     // ===== Dim Sums =====
@@ -1307,7 +1283,7 @@
       name:"Wantan frito",
       desc:"Porción de wantanes rellenos acompañados con salsa tamarindo.",
       price:9.00,
-      groups:[ OPT.dimsum_wantanFrito_tamanio, OPT.bebidasStd_opcional ]
+      groups:[ OPT.dimsum_wantanFrito_tamanio ]
     },
     {
       id:"dimsum_wantanes_pacha_wok",
@@ -1315,7 +1291,7 @@
       name:"Wantanes Pacha Wok",
       desc:"Wantan frito relleno con chanchito y langostinos picados, acompañados de tamarindo Kam Lu.",
       price:7.00,
-      groups:[ OPT.dimsum_wantanesPW_tamanio, OPT.bebidasStd_opcional ]
+      groups:[ OPT.dimsum_wantanesPW_tamanio ]
     },
 
     // ===== Sopas =====
@@ -1325,7 +1301,7 @@
       name:"Sopa Wantán",
       desc:"La tradicional sopa a base de wantan relleno. Pídela de pollo, chancho o versión especial.",
       price:15.00,
-      groups:[ OPT.sopaWantanTipo, OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[ OPT.sopaWantanTipo ]
     },
     {
       id:"sopa_pac_pow",
@@ -1333,7 +1309,7 @@
       name:"Sopa Pac Pow",
       desc:"Mezcla de fideo fansy + huevo batido.",
       price:17.00,
-      groups:[ OPT.salsasOrientales, OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[ OPT.salsasOrientales ]
     },
     {
       id:"sopa_womin",
@@ -1341,7 +1317,7 @@
       name:"Sopa Womín",
       desc:"Sopa a base de pollo.",
       price:16.00,
-      groups:[ OPT.salsasOrientales, OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[ OPT.salsasOrientales ]
     },
     {
       id:"sopa_fuchifu",
@@ -1349,7 +1325,7 @@
       name:"Sopa Fuchifú",
       desc:"La mezcla perfecta de huevo batido y verduras picadas.",
       price:17.00,
-      groups:[ OPT.salsasOrientales, OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[ OPT.salsasOrientales ]
     },
 
     // ===== Clásicos =====
@@ -1359,7 +1335,13 @@
       name:"Arroz Chaufa",
       desc:"El clásico chaufa flameado en el wok.",
       price:18.00,
-      groups:[ OPT.tamanioMedGrande, OPT.tipoArrozChaufa, OPT.salsasOrientales, OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[
+        OPT.tamanioMedGrande,
+        OPT.tipoArrozChaufa,
+        OPT.salsasOrientales,
+        OPT.bebidaPersonal,
+        OPT.wantanSide
+      ]
     },
     {
       id:"aeropuerto",
@@ -1367,7 +1349,13 @@
       name:"Aeropuerto",
       desc:"Infaltable en nuestra carta, con su toque flameado.",
       price:20.00,
-      groups:[ OPT.tamanioMedGrande, OPT.tipoAeropuerto, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[
+        OPT.tamanioMedGrande,
+        OPT.tipoAeropuerto,
+        OPT.bebidaPersonal,
+        OPT.salsasOrientales,
+        OPT.wantanSide
+      ]
     },
     {
       id:"tallarin_saltado",
@@ -1375,7 +1363,12 @@
       name:"Tallarín saltado",
       desc:"Tallarín y verduras salteadas en el wok.",
       price:18.00,
-      groups:[ OPT.tipoTallarin, OPT.salsasOrientales, OPT.bebidasStd_opcional, OPT.wantanesExtra ]
+      groups:[
+        OPT.tipoTallarin,
+        OPT.salsasOrientales,
+        OPT.bebidaPersonal,
+        OPT.wantanSide
+      ]
     },
     {
       id:"combinado",
@@ -1383,17 +1376,23 @@
       name:"Combinado",
       desc:"Tallarín saltado + chaufa flameado en el wok.",
       price:20.00,
-      groups:[ OPT.tamanioMedGrande, OPT.tipoCombinado, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[
+        OPT.tamanioMedGrande,
+        OPT.tipoCombinado,
+        OPT.bebidaPersonal,
+        OPT.salsasOrientales,
+        OPT.wantanSide
+      ]
     },
 
-    // ===== Especiales (con arroz obligatorio) =====
+    // ===== Especiales (Tipakay -> Kam lú wantan con tipo arroz obligatorio + bebida + salsas + wantan) =====
     {
       id:"tipakay",
       section:"especiales",
       name:"Tipakay",
       desc:"Pollo empanizado en salsa tamarindo, acompañado con arroz chaufa.",
       price:20.00,
-      groups:[ OPT.arrozEspeciales, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.arrozEspeciales, OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
     {
       id:"chijaukay",
@@ -1401,7 +1400,7 @@
       name:"Chijaukay",
       desc:"Pollo en trozos con salsa de mensí, tausí y sillao, acompañado con arroz chaufa.",
       price:20.00,
-      groups:[ OPT.arrozEspeciales, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.arrozEspeciales, OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
     {
       id:"pollo_con_verduras",
@@ -1409,7 +1408,7 @@
       name:"Pollo con verduras",
       desc:"Pollo y verduras salteados al wok con salsa de ostión, acompañado de arroz chaufa.",
       price:19.00,
-      groups:[ OPT.arrozEspeciales, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.arrozEspeciales, OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
     {
       id:"pollo_con_pina",
@@ -1417,7 +1416,7 @@
       name:"Pollo con piña",
       desc:"Pechuga de pollo y piña en salsa tamarindo, servido con arroz chaufa.",
       price:21.00,
-      groups:[ OPT.arrozEspeciales, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.arrozEspeciales, OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
     {
       id:"kam_lu_wantan",
@@ -1425,17 +1424,17 @@
       name:"Kam lú wantan",
       desc:"Pollo, chancho, res, verduras y wantanes en salsa tamarindo + arroz chaufa.",
       price:21.00,
-      groups:[ OPT.arrozEspeciales, OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.arrozEspeciales, OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
 
-    // ===== Especiales (sin arroz obligatorio) =====
+    // ===== Especiales (los demás: bebida + salsas + wantan) =====
     {
       id:"tallarin_taypa",
       section:"especiales",
       name:"Tallarín Taypá",
       desc:"Tallarín con todas las carnes, verduras salteadas al wok y a la plancha.",
       price:33.00,
-      groups:[ OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
     {
       id:"lomo_chaufero",
@@ -1443,7 +1442,7 @@
       name:"Lomo chaufero",
       desc:"Lomo saltado con toque oriental, acompañado con papas fritas y arroz chaufa.",
       price:24.00,
-      groups:[ OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
     {
       id:"aeropuer_top",
@@ -1451,7 +1450,7 @@
       name:"Aeropuer-TOP",
       desc:"Aeropuerto con todas las carnes + porción de Chijaukay + porción de Tipakay",
       price:39.90,
-      groups:[ OPT.bebidasStd_opcional, OPT.salsasOrientales, OPT.wantanesExtra ]
+      groups:[ OPT.bebidaPersonal, OPT.salsasOrientales, OPT.wantanSide ]
     },
 
     // ===== Banquetes =====
@@ -1509,38 +1508,41 @@
     $("#cartTotalText").textContent = money(cartTotal());
   }
 
-  // ================== UI: TABS + MENU RENDER ==================
-  let activeSection = "all";
+// ================== UI: TABS + MENU RENDER ==================
+  let activeSection = "all"; // ✅ al iniciar: mostrar TODO
 
   function productCardHTML(p){
+    // 🔥 genera ruta automática desde el nombre del producto
     const imgPath = `img/productos/pacha-wok/${p.name}.jpg`;
+  
     return `
       <article class="p-card product-card">
         <div class="p-imgbox">
-          <img
-            src="${imgPath}"
+          <img 
+            src="${imgPath}" 
             alt="${escapeHtml(p.name)}"
-            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=ph>Pacha%20Wok</div>'"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=ph>Pacha Wok</div>'"
           >
         </div>
-
+  
         <p class="p-name">${escapeHtml(p.name)}</p>
         <p class="p-desc">${escapeHtml(p.desc || "")}</p>
         <div class="p-price">${money(p.price)}</div>
-
+  
         <div class="p-actions">
           <button class="p-add" type="button" data-open-custom="${p.id}">
-            Agregar
+            Personalizar
           </button>
         </div>
       </article>
     `;
   }
-
+  
   function buildTabs(){
     const root = $("#tabs");
     root.innerHTML = "";
 
+    // Tab "Todos"
     const allBtn = document.createElement("button");
     allBtn.className = "tab" + (activeSection === "all" ? " active" : "");
     allBtn.type = "button";
@@ -1554,6 +1556,7 @@
     });
     root.appendChild(allBtn);
 
+    // Tabs por categoría
     SECTIONS.forEach(s => {
       const b = document.createElement("button");
       b.className = "tab" + (s.id === activeSection ? " active" : "");
@@ -1574,6 +1577,7 @@
     const root = $("#menuRoot");
     const q = ($("#q").value || "").trim().toLowerCase();
 
+    // Si por algún motivo activeSection está mal, lo corregimos
     if (activeSection !== "all" && !SECTIONS.some(s => s.id === activeSection)) {
       activeSection = "all";
     }
@@ -1583,12 +1587,15 @@
         ? "Todos los productos"
         : (SECTIONS.find(s => s.id === activeSection)?.name || "Carta");
 
+    // Lista base (TODOS)
     let list = Array.isArray(menu) ? menu.slice() : [];
 
+    // Filtra SOLO si eliges una categoría
     if (activeSection !== "all") {
       list = list.filter(p => p.section === activeSection);
     }
 
+    // Búsqueda
     if (q) {
       list = list.filter(p => (p.name + " " + (p.desc || "")).toLowerCase().includes(q));
     }
@@ -1627,11 +1634,7 @@
   renderCartBadge();
   $("#year").textContent = String(new Date().getFullYear());
 
-  // Estado abierto/cerrado
-  applyStoreStatusUI();
-  setInterval(applyStoreStatusUI, 60 * 1000);
-
-  // ===== Header auto-hide =====
+  // ===== Mostrar header al scrollear hacia arriba (oculta al bajar) =====
   (function(){
     const header = document.querySelector("header");
     if(!header) return;
@@ -1664,20 +1667,22 @@
     }, { passive:true });
   })();
 
-  // ================== MODAL PERSONALIZAR ==================
+
+// ================== MODAL PERSONALIZAR (DINÁMICO) ==================
   let customProduct = null;
   let customQty = 1;
-  let selections = {};
+  let selections = {}; // groupId -> (radioId|string) or (array for check)
 
   function openCustomize(p){
     customProduct = p;
     customQty = 1;
     selections = {};
 
-    $("#customTitle").textContent = p.name;
-    $("#customSub").textContent = "Personaliza tu producto • Base: " + money(p.price);
+    $("#customTitle").textContent = "Personaliza tu producto";
+    $("#customSub").textContent = p.name + " • Base: " + money(p.price);
     $("#qtyNum").textContent = "1";
 
+    // defaults
     (p.groups || []).forEach(g => {
       if(g.type === "radio"){
         selections[g.id] = (g.defaultId ?? (g.choices?.[0]?.id));
@@ -1727,21 +1732,12 @@
           const id = `g_${g.id}_${ch.id}`;
           const checked = selections[g.id] === ch.id;
           const el = document.createElement("label");
-          el.className = "opt" + (checked ? " is-checked" : "");
+          el.className = "opt";
           el.innerHTML = `
             <input type="radio" name="${escapeHtml(g.id)}" id="${escapeHtml(id)}" ${checked ? "checked" : ""}>
-            <div style="display:flex; gap:10px; align-items:center;">
-              ${
-                ch.img
-                ? `<img src="${ch.img}" alt="${escapeHtml(ch.label)}"
-                     style="width:44px;height:44px;border-radius:12px;object-fit:contain;border:1px solid rgba(0,0,0,.08);background:#fff;"
-                     onerror="this.style.display='none';">`
-                : ``
-              }
-              <div>
-                <div style="font-weight:950;">${escapeHtml(ch.label)}</div>
-                <small>${(g.id === "bebida_incluida" && !ch.add) ? "Incluido" : (ch.add ? ("+"+money(ch.add)) : "+S/ 0.00")}</small>
-              </div>
+            <div>
+              <div style="font-weight:950;">${escapeHtml(ch.label)}</div>
+              <small>${ch.add ? ("+"+money(ch.add)) : "+S/ 0.00"}</small>
             </div>
           `;
           el.addEventListener("click", () => {
@@ -1755,7 +1751,7 @@
         g.choices.forEach(ch => {
           const checked = (selections[g.id] || []).includes(ch.id);
           const el = document.createElement("label");
-          el.className = "opt" + (checked ? " is-checked" : "");
+          el.className = "opt";
           el.innerHTML = `
             <input type="checkbox" ${checked ? "checked" : ""}>
             <div>
@@ -1799,6 +1795,7 @@
       if(g.type === "radio"){
         const pick = selections[g.id];
         if(g.required && !pick){
+          // fallback
           selections[g.id] = g.defaultId ?? g.choices?.[0]?.id;
         }
         const ch = getChoiceById(g, selections[g.id]);
@@ -1832,6 +1829,7 @@
   $("#addFromCustom").addEventListener("click", () => {
     if(!customProduct) return;
 
+    // valida obligatorios
     const missing = (customProduct.groups || []).filter(g => g.required).some(g => {
       if(g.type === "radio") return !selections[g.id];
       if(g.type === "check") return false;
@@ -1842,7 +1840,7 @@
       return;
     }
 
-    const { unit } = calcUnitPrice();
+    const { unit, breakdown } = calcUnitPrice();
 
     const pretty = [];
     (customProduct.groups || []).forEach(g => {
@@ -1893,7 +1891,7 @@
 
     if(items.length === 0){
       root.innerHTML = `<div style="border:1px dashed rgba(0,0,0,.12); border-radius:18px; padding:12px; color:#6b7280; background:#fafafa;">
-        Tu carrito está vacío. Agrega productos con el botón "Agregar".
+        Tu carrito está vacío. Agrega productos con el botón "Personalizar".
       </div>`;
       $("#cartTotalText").textContent = money(0);
       return;
