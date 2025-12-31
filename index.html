@@ -1,154 +1,97 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pacha Eats</title>
 
   <style>
     :root{
-      --text:#0f172a;
-      --muted:#6b7280;
-      --bg:#f3f4f6;
-      --card:#ffffff;
       --brand:#e21f0c;
       --brand2:#ff5a1f;
-      --radius:18px;
+      --bg:#f3f4f6;
+      --text:#0f172a;
+      --muted:#6b7280;
+      --card:#fff;
+      --stroke: rgba(15,23,42,.08);
       --shadow: 0 18px 38px rgba(15,23,42,.10);
       --shadow2: 0 10px 26px rgba(15,23,42,.12);
-      --stroke: rgba(15,23,42,.08);
-      --stroke2: rgba(15,23,42,.10);
-      --success:#16a34a;
-      --danger:#dc2626;
-      --warning:#f59e0b;
+      --radius:18px;
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--text);
-      background: radial-gradient(1200px 420px at 50% -80px, rgba(226,31,12,.16), transparent 60%),
-                  radial-gradient(900px 380px at 80% -80px, rgba(255,90,31,.12), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 420px at 50% -80px, rgba(226,31,12,.16), transparent 60%),
+        radial-gradient(900px 380px at 80% -80px, rgba(255,90,31,.12), transparent 60%),
+        var(--bg);
     }
     a{color:inherit}
-    img{max-width:100%; display:block}
+    img{max-width:100%;display:block}
     button{font-family:inherit}
-    .container{
-      width:min(1120px, 92vw);
-      margin: 0 auto;
-    }
+    .container{width:min(1120px,92vw);margin:0 auto}
+    main{padding:12px 0 44px}
 
-    /* ===== Top Bar ===== */
-    .topbar{
-      padding: 14px 0 10px;
-    }
+    /* ===== TOPBAR ===== */
+    .topbar{padding:14px 0 10px}
     .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding: 10px 14px;
-      border-radius: 999px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:10px 14px;border-radius:999px;
       background: linear-gradient(180deg, rgba(226,31,12,.98), rgba(189,22,10,.98));
-      box-shadow: 0 18px 34px rgba(226,31,12,.22);
+      box-shadow:0 18px 34px rgba(226,31,12,.22);
     }
     .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 190px;
+      display:flex;align-items:center;gap:10px;min-width:190px
     }
     .brand .logo{
-      width:44px;height:44px;border-radius:14px;
+      width:44px;height:44px;border-radius:14px;overflow:hidden;
       display:grid;place-items:center;
       background: rgba(255,255,255,.16);
-      border: 1px solid rgba(255,255,255,.22);
-      box-shadow: 0 10px 18px rgba(0,0,0,.08) inset;
-      overflow:hidden;
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:0 10px 18px rgba(0,0,0,.08) inset;
     }
-    .brand .logo img{width:100%; height:100%; object-fit:cover}
-    .brand .name{
-      line-height: 1.05;
-      color:#fff;
-      font-weight: 950;
-      letter-spacing: .2px;
-    }
-    .brand .name span{
-      display:block;
-      font-weight:700;
-      opacity:.92;
-      font-size: 12px;
-      letter-spacing: .25px;
-    }
-
+    .brand .name{line-height:1.05;color:#fff;font-weight:950;letter-spacing:.2px}
+    .brand .name span{display:block;font-weight:700;opacity:.92;font-size:12px;letter-spacing:.25px}
     .search{
-      flex:1;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
+      flex:1;display:flex;align-items:center;gap:10px;
+      padding:10px 14px;border-radius:999px;
       background: rgba(255,255,255,.16);
-      border: 1px solid rgba(255,255,255,.22);
-      color:#fff;
-      min-width: 260px;
+      border:1px solid rgba(255,255,255,.22);
+      color:#fff;min-width:260px
     }
     .search input{
-      border:0;
-      outline:0;
-      width:100%;
-      background: transparent;
-      color:#fff;
-      font-size: 14px;
+      border:0;outline:0;width:100%;
+      background:transparent;color:#fff;font-size:14px
     }
     .search input::placeholder{color: rgba(255,255,255,.78)}
-    .top-actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+    .top-actions{display:flex;align-items:center;gap:10px}
     .btn{
       appearance:none;
-      border: 1px solid rgba(255,255,255,.22);
+      border:1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.16);
-      color:#fff;
-      font-weight: 900;
-      padding: 10px 14px;
-      border-radius: 999px;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      color:#fff;font-weight:900;
+      padding:10px 14px;border-radius:999px;
+      cursor:pointer;display:inline-flex;align-items:center;gap:10px;
       text-decoration:none;
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
     .btn:hover{transform: scale(1.03)}
-    .cart-pill{
-      position:relative;
-      min-width: 120px;
-      justify-content:center;
-    }
+    .cart-pill{position:relative;min-width:120px;justify-content:center}
     .cart-pill .count{
-      position:absolute;
-      top:-7px; right:-7px;
-      width:22px;height:22px;
-      border-radius:999px;
-      display:grid;place-items:center;
-      background:#fff;
-      color: var(--brand);
-      font-size: 12px;
-      font-weight: 950;
-      border: 2px solid rgba(226,31,12,.85);
+      position:absolute;top:-7px;right:-7px;
+      width:22px;height:22px;border-radius:999px;display:grid;place-items:center;
+      background:#fff;color:var(--brand);font-size:12px;font-weight:950;
+      border:2px solid rgba(226,31,12,.85);
     }
 
-    /* ===== Hero ===== */
+    /* ===== HERO ===== */
     .hero{
-      margin-top: 10px;
-      border-radius: var(--radius);
+      margin-top:10px;border-radius:var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.86));
-      border: 1px solid var(--stroke);
+      border:1px solid var(--stroke);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
@@ -156,90 +99,57 @@
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap:18px;
-      padding: 18px;
+      padding:18px;
       align-items:center;
     }
-    .hero h1{
-      margin:0 0 8px;
-      font-size: clamp(22px, 2.6vw, 34px);
-      font-weight: 950;
-      letter-spacing: -.2px;
-    }
-    .hero p{
-      margin:0;
-      color: var(--muted);
-      max-width: 62ch;
-      font-size: 14px;
-      line-height:1.45;
-    }
+    .hero h1{margin:0 0 8px;font-size: clamp(22px,2.6vw,34px);font-weight:950;letter-spacing:-.2px}
+    .hero p{margin:0;color:var(--muted);max-width:62ch;font-size:14px;line-height:1.45}
     .hero-card{
       border-radius: calc(var(--radius) - 6px);
       background: linear-gradient(180deg, rgba(226,31,12,.09), rgba(255,90,31,.06));
       border: 1px solid rgba(226,31,12,.16);
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      padding:14px;
+      display:flex;flex-direction:column;gap:10px;
     }
-    .hero-card .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
+    .hero-card .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 12px;
-      border: 1px solid var(--stroke);
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      font-weight:900;font-size:12px;
+      border:1px solid var(--stroke);
       background: rgba(255,255,255,.88);
-      color: var(--text);
+      color:var(--text);
     }
     .pill .dot{
       width:10px;height:10px;border-radius:999px;
-      background: var(--success);
-      box-shadow: 0 0 0 4px rgba(22,163,74,.12);
+      background:#16a34a;
+      box-shadow:0 0 0 4px rgba(22,163,74,.12);
     }
 
-    /* ===== Sections ===== */
-    main{padding: 12px 0 44px;}
     .section-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin: 16px 0 12px;
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+      margin:16px 0 12px;
     }
-    .section-head h2{margin:0; font-size: clamp(18px, 2.2vw, 26px); font-weight:950;}
-    .section-head p{margin:0; color:#374151; font-size:14px; max-width:70ch;}
+    .section-head h2{margin:0;font-size: clamp(18px,2.2vw,26px);font-weight:950}
+    .section-head p{margin:0;color:#374151;font-size:14px;max-width:70ch}
 
-    /* ===== Categories (restaurants) ===== */
+    /* ===== RESTAURANTES (CATS) ===== */
     .cats{
-      display:flex;
-      gap:10px;
-      overflow:auto;
-      padding: 8px 4px;
+      display:flex;gap:10px;overflow:auto;padding:8px 4px;
       scroll-snap-type: x mandatory;
     }
     .cats::-webkit-scrollbar{height:10px}
-    .cats::-webkit-scrollbar-thumb{background: rgba(15,23,42,.10); border-radius: 999px}
+    .cats::-webkit-scrollbar-thumb{background: rgba(15,23,42,.10);border-radius:999px}
     .cat-bubble{
-      scroll-snap-align: start;
-      min-width: 170px;
+      scroll-snap-align:start;
+      min-width:170px;
       background: rgba(255,255,255,.88);
-      border: 1px solid var(--stroke);
+      border:1px solid var(--stroke);
       box-shadow: var(--shadow2);
-      border-radius: 16px;
-      padding: 12px 12px 10px;
+      border-radius:16px;
+      padding:12px 12px 10px;
       cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
     .cat-bubble:hover{transform: scale(1.03)}
@@ -248,362 +158,189 @@
       box-shadow: 0 18px 34px rgba(226,31,12,.14);
       background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
     }
-    .cat-bubble .label{
-      font-weight: 950;
-      font-size: 13px;
-      line-height:1.1;
-    }
+    .cat-bubble .label{font-weight:950;font-size:13px;line-height:1.1}
     .cat-bubble .img{
-      width:46px;height:46px;border-radius: 14px;
-      background: #fff;
-      border: 1px solid var(--stroke);
-      overflow:hidden;
-      flex: 0 0 auto;
+      width:46px;height:46px;border-radius:14px;
+      background:#fff;border:1px solid var(--stroke);
+      overflow:hidden;flex:0 0 auto;
       display:grid;place-items:center;
     }
-    .cat-bubble .img img{width:100%; height:100%; object-fit:contain}
+    .cat-bubble .img img{width:100%;height:100%;object-fit:contain}
 
-    /* ===== Product carousel ===== */
-    .carousel-wrap{
-      position:relative;
-      margin-top: 8px;
-    }
+    /* ===== PRODUCT CAROUSEL ===== */
+    .carousel-wrap{position:relative;margin-top:8px}
     .carousel{
-      display:flex;
-      gap: 12px;
-      overflow:auto;
+      display:flex;gap:12px;overflow:auto;padding:8px 4px 14px;
       scroll-snap-type: x mandatory;
-      padding: 8px 4px 14px;
     }
     .carousel::-webkit-scrollbar{height:10px}
-    .carousel::-webkit-scrollbar-thumb{background: rgba(15,23,42,.10); border-radius: 999px}
+    .carousel::-webkit-scrollbar-thumb{background: rgba(15,23,42,.10);border-radius:999px}
     .car-btn{
-      position:absolute;
-      top: 42%;
-      transform: translateY(-50%);
-      width: 44px; height: 44px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
+      position:absolute;top:42%;transform:translateY(-50%);
+      width:44px;height:44px;border-radius:999px;
+      border:1px solid var(--stroke);
       background: rgba(255,255,255,.92);
       box-shadow: var(--shadow2);
       cursor:pointer;
-      display:grid; place-items:center;
-      font-size: 20px;
-      font-weight: 950;
-      z-index: 5;
+      display:grid;place-items:center;
+      font-size:20px;font-weight:950;
+      z-index:5;
     }
     .car-btn.left{left:-6px}
     .car-btn.right{right:-6px}
     .car-btn:hover{transform: translateY(-50%) scale(1.06)}
 
-    .p-card{
-      scroll-snap-align: start;
-      min-width: 210px;
+    .product-card{
+      scroll-snap-align:start;
+      min-width:210px;
       background: rgba(255,255,255,.92);
-      border: 1px solid var(--stroke);
+      border:1px solid var(--stroke);
       box-shadow: var(--shadow2);
-      border-radius: 18px;
-      padding: 12px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+      border-radius:18px;
+      overflow:hidden;
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
-    .p-card:hover{transform: scale(1.02)}
-    .p-imgbox{
-      border-radius: 14px;
-      overflow:hidden;
-      aspect-ratio: 4 / 3;
-      background: rgba(15,23,42,.04);
-      border: 1px solid rgba(15,23,42,.06);
-    }
-    .p-imgbox img{
-      width:100%; height:100%;
-      object-fit:cover;
-    }
-    .p-name{
-      margin:0;
-      font-weight: 950;
-      font-size: 14px;
-      line-height: 1.15;
-      min-height: 34px;
-    }
-    .p-meta{
-      color: var(--muted);
-      font-size: 12px;
-      margin-top:-2px;
-    }
-    .p-price{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-top: 4px;
-    }
-    .price{
-      font-weight: 950;
-      font-size: 14px;
-    }
-    .add{
-      border:0;
-      cursor:pointer;
-      font-weight: 950;
-      padding: 10px 12px;
-      border-radius: 999px;
-      color:#fff;
+    .product-card:hover{transform: scale(1.02)}
+    .product-img{aspect-ratio: 4/3;background: rgba(15,23,42,.04);border-bottom:1px solid rgba(15,23,42,.06)}
+    .product-img img{width:100%;height:100%;object-fit:cover}
+    .product-body{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .product-name{margin:0;font-weight:950;font-size:14px;line-height:1.15;min-height:34px}
+    .product-meta{color:var(--muted);font-size:12px;margin-top:-2px}
+    .product-price-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+    .product-price{font-weight:950;font-size:14px}
+    .add-btn{
+      border:0;cursor:pointer;font-weight:950;
+      padding:10px 12px;border-radius:999px;color:#fff;
       background: linear-gradient(180deg, var(--brand2), var(--brand));
       box-shadow: 0 16px 28px rgba(226,31,12,.20);
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
-    .add:hover{transform: scale(1.03)}
-    .add:disabled{
-      opacity:.6;
-      cursor:not-allowed;
-      filter: grayscale(.2);
-      box-shadow:none;
-    }
+    .add-btn:hover{transform: scale(1.03)}
+    .add-btn:disabled{opacity:.6;cursor:not-allowed;filter: grayscale(.2);box-shadow:none}
 
-    /* ===== Modal ===== */
+    /* ===== MODAL ===== */
     .modal{
-      position:fixed;
-      inset:0;
-      background: rgba(2,6,23,.55);
-      display:none;
-      align-items:flex-end;
-      justify-content:center;
-      padding: 12px;
-      z-index: 50;
+      position:fixed;inset:0;background: rgba(2,6,23,.55);
+      display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:50;
     }
     .modal.open{display:flex}
     .sheet{
-      width:min(560px, 96vw);
-      max-height: 92vh;
-      overflow:auto;
-      border-radius: 22px;
+      width:min(560px,96vw);
+      max-height:92vh;overflow:auto;
+      border-radius:22px;
       background: rgba(255,255,255,.98);
       border: 1px solid rgba(255,255,255,.22);
       box-shadow: 0 30px 80px rgba(2,6,23,.35);
-      padding: 14px;
-      position:relative;
+      padding:14px;position:relative;
       animation: up .18s ease-out;
     }
-    @keyframes up{
-      from{transform: translateY(14px); opacity:0}
-      to{transform: translateY(0); opacity:1}
-    }
+    @keyframes up{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
     .sheet .close{
-      position:absolute;
-      top: 10px; right: 10px;
-      width: 40px; height: 40px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.92);
-      cursor:pointer;
-      font-size: 16px;
-      font-weight: 950;
-      display:grid;place-items:center;
+      position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:999px;
+      border:1px solid var(--stroke);background: rgba(255,255,255,.92);
+      cursor:pointer;font-size:16px;font-weight:950;display:grid;place-items:center;
       transition: transform .18s ease;
     }
     .sheet .close:hover{transform: scale(1.06)}
-    .sheet-head{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-      padding-right: 46px;
-      margin-bottom: 10px;
-    }
+    .sheet-head{display:flex;align-items:flex-start;gap:12px;padding-right:46px;margin-bottom:10px}
     .sheet-head .thumb{
-      width:86px;height:86px;border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(15,23,42,.08);
-      background: rgba(15,23,42,.04);
-      flex:0 0 auto;
+      width:86px;height:86px;border-radius:18px;overflow:hidden;
+      border:1px solid rgba(15,23,42,.08);background: rgba(15,23,42,.04);flex:0 0 auto;
     }
-    .sheet-head .thumb img{width:100%;height:100%; object-fit:cover}
-    .sheet-head h3{
-      margin:0;
-      font-weight: 950;
-      font-size: 18px;
-      line-height: 1.15;
-    }
-    .sheet-head p{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
-    }
+    .sheet-head .thumb img{width:100%;height:100%;object-fit:cover}
+    .sheet-head h3{margin:0;font-weight:950;font-size:18px;line-height:1.15}
+    .sheet-head p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.35}
 
-    .opt-block{
+    .info-block{
       background: rgba(15,23,42,.03);
-      border: 1px solid rgba(15,23,42,.06);
-      border-radius: 18px;
-      padding: 12px;
-      margin: 10px 0;
+      border:1px solid rgba(15,23,42,.06);
+      border-radius:18px;
+      padding:12px;
+      margin:10px 0;
     }
-    .opt-title{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom: 10px;
+    .info-title{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;
     }
-    .opt-title h4{margin:0; font-weight: 950; font-size: 14px}
+    .info-title h4{margin:0;font-weight:950;font-size:14px}
     .tag{
-      font-size: 11px;
-      font-weight: 950;
-      padding: 6px 9px;
-      border-radius: 999px;
+      font-size:11px;font-weight:950;padding:6px 9px;border-radius:999px;
       background: rgba(226,31,12,.10);
-      border: 1px solid rgba(226,31,12,.18);
+      border:1px solid rgba(226,31,12,.18);
       color: var(--brand);
       white-space:nowrap;
     }
     .opt{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      padding: 10px 10px;
-      border-radius: 14px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+      padding:10px 10px;border-radius:14px;
       background: rgba(255,255,255,.9);
-      border: 1px solid rgba(15,23,42,.06);
-      cursor:pointer;
-      user-select:none;
-      margin-bottom: 8px;
+      border:1px solid rgba(15,23,42,.06);
+      cursor:pointer;user-select:none;margin-bottom:8px;
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
     .opt:hover{transform: scale(1.01)}
     .opt:last-child{margin-bottom:0}
-    .opt .l{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-    }
+    .opt .l{display:flex;align-items:flex-start;gap:10px}
     .radio{
-      width:18px;height:18px;border-radius:999px;
-      border:2px solid rgba(15,23,42,.28);
-      margin-top: 2px;
-      display:grid;place-items:center;
-      flex:0 0 auto;
+      width:18px;height:18px;border-radius:999px;border:2px solid rgba(15,23,42,.28);
+      margin-top:2px;display:grid;place-items:center;flex:0 0 auto;
     }
     .radio::after{
-      content:"";
-      width:10px;height:10px;border-radius:999px;
-      background: var(--brand);
-      transform: scale(0);
-      transition: transform .14s ease;
+      content:"";width:10px;height:10px;border-radius:999px;background: var(--brand);
+      transform: scale(0);transition: transform .14s ease;
     }
     .opt.selected .radio{border-color: rgba(226,31,12,.65)}
     .opt.selected .radio::after{transform: scale(1)}
-    .opt .name{font-weight: 950; font-size: 13px; margin:0}
-    .opt .desc{color: var(--muted); font-size: 12px; margin: 3px 0 0}
-    .opt .r{font-weight: 950; font-size: 13px; white-space:nowrap}
+    .opt .name{font-weight:950;font-size:13px;margin:0}
+    .opt .desc{color:var(--muted);font-size:12px;margin:3px 0 0}
+    .opt .r{font-weight:950;font-size:13px;white-space:nowrap}
 
-    .qty-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top: 10px;
-    }
+    .qty-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
     .qty{
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display:flex;align-items:center;gap:10px;
       background: rgba(15,23,42,.03);
-      border: 1px solid rgba(15,23,42,.06);
-      border-radius: 999px;
-      padding: 8px 10px;
+      border:1px solid rgba(15,23,42,.06);
+      border-radius:999px;
+      padding:8px 10px;
     }
     .qty button{
       width:34px;height:34px;border-radius:999px;
-      border: 1px solid rgba(15,23,42,.10);
+      border:1px solid rgba(15,23,42,.10);
       background: rgba(255,255,255,.95);
-      cursor:pointer;
-      font-weight: 950;
+      cursor:pointer;font-weight:950;
     }
-    .qty .n{font-weight: 950; width:24px; text-align:center}
+    .qty .n{font-weight:950;width:24px;text-align:center}
     .sheet-footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top: 10px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;
     }
-    .sheet-footer .total{
-      font-weight: 950;
-      font-size: 16px;
-    }
+    .sheet-footer .total{font-weight:950;font-size:16px}
     .sheet-footer .cta{
-      border:0;
-      cursor:pointer;
-      font-weight: 950;
-      padding: 12px 16px;
-      border-radius: 999px;
-      color:#fff;
+      border:0;cursor:pointer;font-weight:950;
+      padding:12px 16px;border-radius:999px;color:#fff;
       background: linear-gradient(180deg, var(--brand2), var(--brand));
       box-shadow: 0 16px 28px rgba(226,31,12,.22);
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
     .sheet-footer .cta:hover{transform: scale(1.03)}
 
-    /* ===== Footer ===== */
-    footer{
-      padding: 16px 0 26px;
-      color: rgba(15,23,42,.60);
-      font-size: 12px;
-      text-align:center;
-    }
+    /* ===== FOOTER ===== */
+    footer{padding:16px 0 26px;color: rgba(15,23,42,.60);font-size:12px;text-align:center}
 
     /* ===== WhatsApp float ===== */
     .wa-float{
-      position:fixed;
-      right: 16px;
-      bottom: 16px;
-      width: 54px;
-      height: 54px;
-      border-radius: 999px;
-      background: #22c55e;
-      color:#fff;
-      display:grid;
-      place-items:center;
+      position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:999px;
+      background:#22c55e;color:#fff;display:grid;place-items:center;
       box-shadow: 0 18px 34px rgba(34,197,94,.25);
-      border: 1px solid rgba(255,255,255,.25);
-      text-decoration:none;
-      z-index: 80;
+      border:1px solid rgba(255,255,255,.25);
+      text-decoration:none;z-index:80;
       transition: transform .18s ease;
     }
     .wa-float:hover{transform: scale(1.06)}
 
-    /* ===== Responsive ===== */
-    @media (max-width: 820px){
-      .hero-inner{grid-template-columns: 1fr}
+    @media (max-width:820px){
+      .hero-inner{grid-template-columns:1fr}
       .brand{min-width:auto}
       .search{min-width:auto}
     }
-
-    /* ===== Ver más (debajo del carrusel de productos) ===== */
-    .view-more-wrap{
-      display:flex;
-      justify-content:center;
-      margin: 6px 0 2px;
-    }
-    .view-more-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      text-decoration:none;
-      font-weight: 950;
-      font-size: 14px;
-      background: var(--brand);
-      color: #fff;
-      box-shadow: 0 14px 24px rgba(226,31,12,0.18);
-      border: 1px solid rgba(226,31,12,0.25);
-    }
-    .view-more-btn:active{ transform: scale(0.98); }
   </style>
 </head>
 
@@ -613,10 +350,7 @@
       <div class="topbar-inner">
         <div class="brand">
           <div class="logo"><img src="img/logos/pacha.png" alt="Pacha Eats"></div>
-          <div class="name">
-            Pacha Eats
-            <span>Delivery + marcas</span>
-          </div>
+          <div class="name">Pacha Eats<span>Delivery + marcas</span></div>
         </div>
 
         <div class="search" role="search">
@@ -665,7 +399,7 @@
         <div class="section-head">
           <div>
             <h2>Restaurantes</h2>
-            <p>Elige una marca para ver sus 10 productos principales.</p>
+            <p>Elige una marca para ver sus mejores opciones.</p>
           </div>
         </div>
 
@@ -674,7 +408,7 @@
         <div class="section-head" style="margin-top:14px;">
           <div>
             <h2>Productos</h2>
-            <p>Top 10 según el restaurante seleccionado.</p>
+            <p>Explora y personaliza tus favoritos.</p>
           </div>
         </div>
 
@@ -682,10 +416,6 @@
           <button class="car-btn left" id="prodLeft" type="button" aria-label="Izquierda">‹</button>
           <div class="carousel" id="productCarousel" aria-label="Carrusel de productos"></div>
           <button class="car-btn right" id="prodRight" type="button" aria-label="Derecha">›</button>
-        </div>
-
-        <div class="view-more-wrap">
-          <a id="viewMoreBtn" class="view-more-btn" href="#" style="display:none;">Ver más</a>
         </div>
       </section>
     </main>
@@ -708,16 +438,16 @@
         </div>
       </div>
 
-      <div class="opt-block" id="sizeBlock">
-        <div class="opt-title">
+      <div class="info-block" id="sizeBlock">
+        <div class="info-title">
           <h4>Tamaño</h4>
           <span class="tag">Obligatorio</span>
         </div>
         <div id="sizeList"></div>
       </div>
 
-      <div class="opt-block" id="toppingBlock">
-        <div class="opt-title">
+      <div class="info-block" id="toppingBlock">
+        <div class="info-title">
           <h4>Complementos</h4>
           <span class="tag">Opcional</span>
         </div>
@@ -741,14 +471,7 @@
   </div>
 
   <!-- WhatsApp flotante -->
-  <a
-    class="wa-float"
-    href="https://wa.me/51999999999"
-    target="_blank"
-    rel="noopener"
-    aria-label="WhatsApp"
-    title="WhatsApp"
-  >💬</a>
+  <a class="wa-float" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">💬</a>
 
   <script>
   // ================== HELPERS ==================
@@ -767,91 +490,70 @@
 
   // ================== DATA: RESTAURANTES ==================
   const categories = [
-    { id:"jijunas",      name:"Jijuna’s",      img:"img/logos/restaurantes/Jijunas.png" },
-    { id:"pacha-wok",    name:"Pacha Wok",     img:"img/logos/restaurantes/Pacha Wok.png" },
-    { id:"qori-chicken", name:"Qori Chicken",  img:"img/logos/restaurantes/Qori Chicken.png" },
-    { id:"delipizza",    name:"Delipizza",     img:"img/logos/restaurantes/Delipizza.png" },
-    { id:"pacha-fresh",  name:"Pacha Fresh",   img:"img/logos/restaurantes/Pacha Fresh.png" },
-    { id:"pacha-gurmet", name:"Pacha Gurmet",  img:"img/logos/restaurantes/Pacha Gurmet.png" },
-    { id:"dulces-rosita",name:"Dulces Rosita", img:"img/logos/restaurantes/Dulces Rosita.png" },
+    { id:"pacha-wok",      name:"Chifa",              img:"img/logos/restaurantes/Pacha Wok.png" },
+    { id:"jijunas",        name:"Alitas y Burgers",   img:"img/logos/restaurantes/Jijunas.png" },
+    { id:"delipizza",      name:"Pizzas",             img:"img/logos/restaurantes/Delipizza.png" },
+    { id:"qori-chicken",   name:"Pollos y Parrillas", img:"img/logos/restaurantes/Qori Chicken.png" },
+    { id:"pacha-fresh",    name:"Jugos y Sandwiches", img:"img/logos/restaurantes/Pacha Fresh.png" },
+    { id:"pacha-gurmet",   name:"Criollo y Marino",   img:"img/logos/restaurantes/Pacha Gurmet.png" },
+    { id:"dulces-rosita",  name:"Postres",            img:"img/logos/restaurantes/Dulces Rosita.png" },
   ];
 
-  // ================== DATA: PRODUCTOS (10) ==================
+  // ================== DATA: PRODUCTOS ==================
+  // (Mantengo tu data original)
   const products = [
-    { id:"p1", cat:"jijunas", name:"Alitas BBQ (6u)",      price:18.90, img:"https://images.unsplash.com/photo-1604908176920-3b6f6ddccdf1?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p2", cat:"jijunas", name:"Alitas Picantes (6u)", price:18.90, img:"https://images.unsplash.com/photo-1615937657715-bc7b4b7962f7?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p3", cat:"jijunas", name:"Costillitas BBQ",      price:29.90, img:"https://images.unsplash.com/photo-1553163147-622ab57be1c7?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p4", cat:"pacha-wok", name:"Chaufa Clásico",     price:17.90, img:"https://images.unsplash.com/photo-1604908554160-c5f89dd4e7a4?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p5", cat:"pacha-wok", name:"Aeropuerto Mixto",   price:21.90, img:"https://images.unsplash.com/photo-1586511925558-a4c6376fe65f?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p6", cat:"pacha-wok", name:"Plato Especial Taypá", price:27.90, img:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p7", cat:"qori-chicken", name:"Oferta 1 Pollo + Papas", price:49.90, img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p8", cat:"qori-chicken", name:"Oferta 1/2 Pollo + Gaseosa", price:29.90, img:"https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p9", cat:"delipizza", name:"Pepperoni Mediana",  price:32.00, img:"https://images.unsplash.com/photo-1548365328-9f547f6de0c0?auto=format&fit=crop&w=1200&q=80" },
-    { id:"p10", cat:"pacha-fresh", name:"Jugo Detox",      price:12.00, img:"https://images.unsplash.com/photo-1542444459-db63c1a8e0c8?auto=format&fit=crop&w=1200&q=80" }
+    { id:"p1", cat:"burg", name:"WHOPPER®", price:17.90, img:"https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?auto=format&fit=crop&w=1200&q=80" },
+    { id:"p2", cat:"burg", name:"WHOPPER® Doble", price:22.90, img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80" },
+    { id:"p3", cat:"burg", name:"King de Pollo", price:15.90, img:"https://images.unsplash.com/photo-1606755962773-d324e9a13086?auto=format&fit=crop&w=1200&q=80" },
+
+    { id:"p4", cat:"pizza", name:"Pepperoni Mediana", price:32.00, img:"https://images.unsplash.com/photo-1548365328-9f547f6de0c0?auto=format&fit=crop&w=1200&q=80" },
+    { id:"p5", cat:"pizza", name:"Hawaiana Mediana", price:34.00, img:"https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=1200&q=80" },
+
+    { id:"p6", cat:"pollo", name:"1/2 Pollo a la Brasa", price:29.90, img:"https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=1200&q=80" },
+    { id:"p7", cat:"pollo", name:"1 Pollo a la Brasa", price:49.90, img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80" },
+
+    { id:"p8", cat:"chifa", name:"Chaufa Clásico", price:17.90, img:"https://images.unsplash.com/photo-1604908554160-c5f89dd4e7a4?auto=format&fit=crop&w=1200&q=80" },
+    { id:"p9", cat:"chifa", name:"Aeropuerto Mixto", price:21.90, img:"https://images.unsplash.com/photo-1586511925558-a4c6376fe65f?auto=format&fit=crop&w=1200&q=80" },
+
+    { id:"p10", cat:"fresh", name:"Jugo Detox", price:12.00, img:"https://images.unsplash.com/photo-1542444459-db63c1a8e0c8?auto=format&fit=crop&w=1200&q=80" }
   ];
 
-  // ================== FEATURED (TOP 10) + VER MÁS ==================
-  const RESTAURANT_PAGES = {
-    "jijunas": "jijunas.html",
-    "pacha-wok": "pachawok.html",
-    "qori-chicken": "qorichicken.html",
-    "delipizza": "delipizza.html",
-    "pacha-fresh": "pachafresh.html",
-    "pacha-gurmet": "pachagurmet.html",
-    "dulces-rosita": "dulcesrosita.html",
-  };
-
-  // Reglas de “top 10” por restaurante (por nombre)
+  // ================== TOP 10 POR RESTAURANTE (INDEX) ==================
+  // Al elegir un restaurante, el carrusel de productos mostrará SOLO 10 items (curados por palabras clave).
   const FEATURE_RULES = {
-    // Jijunas: alitas + costillitas
-    "jijunas": (p) => /alita|alitas|costill/i.test((p.name||"").toLowerCase()),
-    // Pacha Wok: chaufas + aeropuertos + platos especiales
-    "pacha-wok": (p) => /chaufa|aeropuerto|especial/.test((p.name||"").toLowerCase()),
-    // Qori Chicken: ofertas
-    "qori-chicken": (p) => /oferta|ofertas|promo|promoción|promocion/.test((p.name||"").toLowerCase()),
+    // Jijunas: alitas y costillitas
+    "jijunas": (p) => /alita|alitas|costill/i.test(p.name || ""),
+    // Pacha Wok: chaufas, aeropuertos y platos especiales
+    "pacha-wok": (p) => /chaufa|aeropuerto|especial/i.test(p.name || ""),
+    // Qori Chicken: ofertas / promos
+    "qori-chicken": (p) => /oferta|ofertas|promo|promoción|promocion/i.test(p.name || ""),
   };
 
-  // Devuelve los 10 “featured” del restaurante (si no alcanza, completa con los primeros del restaurante)
   function getTop10ForRestaurant(restId){
-    if(!restId) return products.slice(0, 10);
-
-    const base = products.filter(p => p.cat === restId); // cat debe ser el id del restaurante (ej. "jijunas")
-    if(!base.length) return products.slice(0, 10);
+    const base = products.filter(p => p.cat === restId);
+    if (!base.length) return [];
 
     const rule = FEATURE_RULES[restId];
     let featured = rule ? base.filter(rule) : base.slice();
 
-    if(featured.length < 10){
+    // Completar hasta 10 si el filtro dejó pocos
+    if (featured.length < 10) {
       const used = new Set(featured.map(x => x.id));
-      for(const item of base){
-        if(featured.length >= 10) break;
-        if(!used.has(item.id)) featured.push(item);
+      for (const it of base) {
+        if (featured.length >= 10) break;
+        if (!used.has(it.id)) featured.push(it);
       }
     }
 
     return featured.slice(0, 10);
   }
 
-  function syncViewMore(restId){
-    const btn = document.getElementById("viewMoreBtn");
-    if(!btn) return;
-
-    if(restId && RESTAURANT_PAGES[restId]){
-      btn.href = RESTAURANT_PAGES[restId];
-      btn.style.display = "inline-flex";
-    } else {
-      btn.style.display = "none";
-      btn.href = "#";
-    }
-  }
-
-  // ================== STATE ==================
-  let activeCat = categories[0]?.id || null;
+  // ================== CART ==================
   let cart = [];
 
   // ================== OPEN/CLOSED (demo simple) ==================
-  const OPEN_START = 12; // 12:00
-  const OPEN_END   = 23; // 23:00
+  const OPEN_START = 12;
+  const OPEN_END   = 23;
 
   function updateOpen(){
     const now = new Date();
@@ -859,12 +561,15 @@
     const open = (h >= OPEN_START && h < OPEN_END);
     const dot = $("#openDot");
     const txt = $("#openText");
-    dot.style.background = open ? "var(--success)" : "var(--danger)";
+    dot.style.background = open ? "#16a34a" : "#dc2626";
     dot.style.boxShadow = open ? "0 0 0 4px rgba(22,163,74,.12)" : "0 0 0 4px rgba(220,38,38,.12)";
     txt.textContent = open ? "Abierto" : "Cerrado";
   }
   updateOpen();
-  setInterval(updateOpen, 20_000);
+  setInterval(updateOpen, 20000);
+
+  // ================== STATE ==================
+  let activeCat = categories[0]?.id || null;
 
   // ================== RENDER RESTAURANTES ==================
   function renderCats(){
@@ -881,7 +586,6 @@
         activeCat = c.id;
         renderCats();
         renderProducts();
-        syncViewMore(activeCat);
       });
       root.appendChild(el);
     });
@@ -890,26 +594,39 @@
   // ================== PRODUCTOS ==================
   function productCardHTML(p){
     return `
-      <article class="p-card">
-        <div class="p-imgbox">
+      <article class="product-card">
+        <div class="product-img">
           <img src="${p.img}" alt="${escapeHtml(p.name)}">
         </div>
-        <p class="p-name">${escapeHtml(p.name)}</p>
-        <div class="p-meta">Precio desde</div>
-        <div class="p-price">
-          <div class="price">${money(p.price)}</div>
-          <button class="add" type="button" data-open-custom="${p.id}">Agregar</button>
+        <div class="product-body">
+          <p class="product-name">${escapeHtml(p.name)}</p>
+          <div class="product-meta">Precio desde</div>
+          <div class="product-price-row">
+            <div class="product-price">${money(p.price)}</div>
+            <button class="add-btn" type="button" data-open-custom="${p.id}">Agregar</button>
+          </div>
         </div>
       </article>
     `;
   }
 
+  // ✅ CAMBIO PRINCIPAL: SOLO 10 AL SELECCIONAR RESTAURANTE
   function renderProducts(){
     const root = $("#productCarousel");
 
-    // Si hay restaurante elegido: top 10 “curado”
-    // Si no hay: top 10 general
-    const use = activeCat ? getTop10ForRestaurant(activeCat) : products.slice(0, 10);
+    // Mantiene tu lógica original (filtrar por restaurante),
+    // pero ahora muestra SOLO 10 productos “destacados” según reglas.
+    let use;
+
+    if(activeCat){
+      const top = getTop10ForRestaurant(activeCat);
+      use = (top && top.length)
+        ? top
+        : products.filter(p => p.cat === activeCat).slice(0, 10);
+    } else {
+      // Sin restaurante seleccionado: deja el comportamiento original (todo)
+      use = products;
+    }
 
     root.innerHTML = use.map(productCardHTML).join("");
 
@@ -926,13 +643,13 @@
   // ================== MODAL PERSONALIZAR ==================
   const sizeDefs = [
     { id:"reg", name:"Regular", add:0.00, desc:"+0.00" },
-    { id:"gde", name:"Grande",  add:3.50, desc:"+S/ 3.50" }
+    { id:"gde", name:"Grande", add:3.50, desc:"+S/ 3.50" }
   ];
   const toppingDefs = [
     { id:"cheese", name:"Queso extra", add:2.50, desc:"+S/ 2.50" },
-    { id:"bacon",  name:"Bacon",      add:3.00, desc:"+S/ 3.00" },
-    { id:"salsa",  name:"Salsa picante", add:1.50, desc:"+S/ 1.50" },
-    { id:"papas",  name:"Papas extra", add:4.00, desc:"+S/ 4.00" }
+    { id:"bacon", name:"Bacon", add:3.00, desc:"+S/ 3.00" },
+    { id:"salsa", name:"Salsa picante", add:1.50, desc:"+S/ 1.50" },
+    { id:"papas", name:"Papas extra", add:4.00, desc:"+S/ 4.00" }
   ];
 
   let customProduct = null;
@@ -955,7 +672,6 @@
 
     $("#qtyN").textContent = customQty;
 
-    // render sizes
     const sizeRoot = $("#sizeList");
     sizeRoot.innerHTML = "";
     sizeDefs.forEach(s => {
@@ -980,7 +696,6 @@
       sizeRoot.appendChild(el);
     });
 
-    // render toppings
     const topRoot = $("#toppingList");
     topRoot.innerHTML = "";
     toppingDefs.forEach(t => {
@@ -1020,14 +735,12 @@
   function computeLineTotal(){
     if(!customProduct) return 0;
     const base = customProduct.price || 0;
-
     const sizeAdd = (sizeDefs.find(x => x.id === selectedSize)?.add) || 0;
 
     let topAdd = 0;
     for(const tid of selectedToppings){
       topAdd += (toppingDefs.find(x => x.id === tid)?.add) || 0;
     }
-
     return (base + sizeAdd + topAdd) * customQty;
   }
 
@@ -1081,16 +794,15 @@
     $("#cartCount").textContent = String(count);
   }
   $("#openCart").addEventListener("click", () => {
-    // demo simple: alerta
     if(!cart.length){
       alert("Tu carrito está vacío.");
       return;
     }
     const sum = cart.reduce((a, it) => a + (it.total || 0), 0);
-    alert("Items: " + cart.length + "\nTotal: " + money(sum));
+    alert("Items: " + cart.length + "\\nTotal: " + money(sum));
   });
 
-  // ================== BUSCADOR (mantiene tu comportamiento original) ==================
+  // ================== BUSCADOR (tu lógica original) ==================
   $("#q").addEventListener("input", (e) => {
     const q = e.target.value.trim().toLowerCase();
     if(!q){
@@ -1100,8 +812,7 @@
     const root = $("#productCarousel");
     const base = products.filter(p => p.cat === activeCat);
     const filtered = base.filter(p => (p.name).toLowerCase().includes(q));
-    const use = (filtered.length ? filtered : base).slice(0, 10);
-    root.innerHTML = use.map(productCardHTML).join("");
+    root.innerHTML = (filtered.length ? filtered : base).map(productCardHTML).join("");
     root.querySelectorAll("[data-open-custom]").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-open-custom");
@@ -1123,7 +834,6 @@
   // ================== INIT ==================
   renderCats();
   renderProducts();
-  syncViewMore(activeCat);
   renderCartBadge();
   $("#year").textContent = String(new Date().getFullYear());
   </script>
