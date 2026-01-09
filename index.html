@@ -2214,15 +2214,27 @@
   let activeCat = null;
   function renderCats(){
     const root = $("#catsGrid");
+    console.log("Renderizando categorías, activeCat:", activeCat);
+    console.log("Categorías disponibles:", categories);
     root.innerHTML = "";
+    
     categories.forEach(c => {
+      console.log("Categoría:", c.id, " - Imagen:", c.img);
       const el = document.createElement("div");
       el.className = "cat-bubble" + (c.id === activeCat ? " active" : "");
       el.innerHTML = `
         <div class="label">${escapeHtml(c.name)}</div>
         <div class="img"><img src="${c.img}" alt="${escapeHtml(c.name)}"></div>
       `;
+      
+      // Verifica si la imagen existe
+      const img = new Image();
+      img.onload = () => console.log(`✓ Imagen cargada: ${c.img}`);
+      img.onerror = () => console.log(`✗ Error cargando: ${c.img}`);
+      img.src = c.img;
+      
       el.addEventListener("click", () => {
+        console.log("Categoría clickeada:", c.id);
         activeCat = c.id;
         renderCats();
         renderProducts();
@@ -2249,7 +2261,7 @@
   function renderProducts(){
     const root = $("#productCarousel");
     let list;
-
+  
     if (activeCat && FEATURED_BY_REST[activeCat] && FEATURED_BY_REST[activeCat].length) {
       // ✅ Top 10 desde el archivo del restaurante
       list = FEATURED_BY_REST[activeCat];
@@ -2259,10 +2271,10 @@
     } else {
       list = products;
     }
-
+  
     const use = list.length ? list : products;
     root.innerHTML = use.map(productCardHTML).join("");
-
+  
     root.querySelectorAll("[data-open-custom]").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-open-custom");
@@ -2272,11 +2284,9 @@
         openCustomize(p, btn);
       });
     });
-
+  
     updateSeeMoreBtn();
-  } else {
-      list = products;
-    }
+  }
     
     const use = list.length ? list : products;
     root.innerHTML = use.map(productCardHTML).join("");
